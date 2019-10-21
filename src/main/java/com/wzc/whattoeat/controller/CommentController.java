@@ -31,9 +31,9 @@ public class CommentController {
     }
 
     @RequestMapping("/queryComment")
-    public ModelAndView queryComment() {
+    public ModelAndView queryComment(int page, int pageSize) {
         ModelAndView modelAndView = new ModelAndView(VIEW_PATH);
-        List<Comment> commentList = commentService.findAll();
+        List<Comment> commentList = commentService.findAllByPage(page, pageSize);
         modelAndView.addObject("commentList", commentList);
         return modelAndView;
     }

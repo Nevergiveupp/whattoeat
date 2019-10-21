@@ -24,7 +24,7 @@ public interface CommentService {
      * 查询所有评论
      * @return
      */
-    List<Comment> findAll();
+    List<Comment> findAllByPage(int page, int pageSize);
 
     /**
      * 新增评论
