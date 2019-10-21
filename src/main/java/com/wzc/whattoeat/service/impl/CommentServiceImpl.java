@@ -33,8 +33,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findAll() {
         List<Comment> list = commentMapper.findAll();
         for (Comment comment : list) {
-            System.out.println(comment.getCreateTime());
-            String createTime = comment.getCreateTime();
+            System.out.println(comment.getCreateTime());//TODO 从数据库获取创建时间为空
         }
         return list;
     }
