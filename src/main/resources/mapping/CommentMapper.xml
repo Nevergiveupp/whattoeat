@@ -30,4 +30,8 @@
         values(#{name,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, now())
     </insert>
 
+    <select id="queryTotalCount" resultType="java.lang.Integer">
+        select count(0) from comment_record
+    </select>
+
 </mapper>

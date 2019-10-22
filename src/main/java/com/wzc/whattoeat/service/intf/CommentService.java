@@ -24,11 +24,17 @@ public interface CommentService {
      * 查询所有评论
      * @return
      */
-    List<Comment> findAllByPage(int page, int pageSize);
+    List<Comment> findAllByPage(Integer page, Integer pageSize);
 
     /**
      * 新增评论
      * @param comment
      */
     void saveComment(Comment comment);
+
+    /**
+     * 查询评论总条数
+     * @return
+     */
+    int queryTotalCount();
 }

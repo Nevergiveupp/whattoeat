@@ -33,4 +33,9 @@ public interface CommentMapper {
      * @param comment
      */
     void saveComment(Comment comment);
+
+    /**
+     * 评论总条数
+     */
+    int queryTotalCount();
 }

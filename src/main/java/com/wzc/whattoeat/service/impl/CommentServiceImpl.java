@@ -30,23 +30,27 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAllByPage(int page, int pageSize) {
+    public List<Comment> findAllByPage(Integer page, Integer pageSize) {
         Page<Comment> pages = PageHelper.startPage(page, pageSize);
-        System.out.println("总记录数：" + pages.getTotal());
-        System.out.println("总页数：" + pages.getPageNum());
-        System.out.println("每页记录数：" + pages.getPageSize());
-        System.out.println("当前页记录数：" + pages.size());
-        System.out.println("总页数：" + pages.getPages());
-
         List<Comment> list = commentMapper.findAll();
         for (Comment comment : list) {
             System.out.println(comment.getCreateTime());//TODO 从数据库获取创建时间为空
         }
+        System.out.println("总记录数：" + pages.getTotal());
+        System.out.println("当前页：" + pages.getPageNum());
+        System.out.println("每页记录数：" + pages.getPageSize());
+        System.out.println("当前页记录数：" + pages.size());
+        System.out.println("总页数：" + pages.getPages());
         return list;
     }
 
     @Override
     public void saveComment(Comment comment) {
         commentMapper.saveComment(comment);
+    }
+
+    @Override
+    public int queryTotalCount() {
+        return commentMapper.queryTotalCount();
     }
 }

@@ -30,11 +30,13 @@ public class CommentController {
         return commentService.findById(id).toString();
     }
 
-    @RequestMapping("/queryComment")
-    public ModelAndView queryComment(int page, int pageSize) {
+    @RequestMapping(value = "queryComment")
+    public ModelAndView queryComment(Integer page, Integer pageSize) {
         ModelAndView modelAndView = new ModelAndView(VIEW_PATH);
         List<Comment> commentList = commentService.findAllByPage(page, pageSize);
         modelAndView.addObject("commentList", commentList);
+        int count = commentService.queryTotalCount();
+        modelAndView.addObject("count",count);
         return modelAndView;
     }
 
