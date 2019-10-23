@@ -2,6 +2,7 @@ package com.wzc.whattoeat.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wzc.whattoeat.dao.intf.CommentMapper;
 import com.wzc.whattoeat.domain.Comment;
 import com.wzc.whattoeat.service.intf.CommentService;
@@ -30,18 +31,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAllByPage(Integer page, Integer pageSize) {
-        Page<Comment> pages = PageHelper.startPage(page, pageSize);
+    public Page<Comment> findAllByPage(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
         List<Comment> list = commentMapper.findAll();
         for (Comment comment : list) {
             System.out.println(comment.getCreateTime());//TODO 从数据库获取创建时间为空
         }
-        System.out.println("总记录数：" + pages.getTotal());
-        System.out.println("当前页：" + pages.getPageNum());
-        System.out.println("每页记录数：" + pages.getPageSize());
-        System.out.println("当前页记录数：" + pages.size());
-        System.out.println("总页数：" + pages.getPages());
-        return list;
+//        System.out.println("总记录数：" + pages.getTotal());
+//        System.out.println("当前页：" + pages.getPageNum());
+//        System.out.println("每页记录数：" + pages.getPageSize());
+//        System.out.println("当前页记录数：" + pages.size());
+//        System.out.println("总页数：" + pages.getPages());
+
+        return (Page<Comment>) list;
     }
 
     @Override

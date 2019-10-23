@@ -1,5 +1,7 @@
 package com.wzc.whattoeat.service.intf;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.wzc.whattoeat.domain.Comment;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface CommentService {
      * 查询所有评论
      * @return
      */
-    List<Comment> findAllByPage(Integer page, Integer pageSize);
+    Page<Comment> findAllByPage(Integer page, Integer pageSize);
 
     /**
      * 新增评论

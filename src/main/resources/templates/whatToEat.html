@@ -9,8 +9,8 @@
     <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/plugins/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
     <link th:href="@{/css/theme.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
           type="text/css"/>
@@ -130,25 +130,64 @@
 
         <label for="commentTable">历史评论：</label>
         <table class="table table-striped table-hover table-bordered" id="commentTable">
+            <thead>
             <tr class="info">
                 <th>id</th>
                 <th>姓名</th>
                 <th>评论</th>
                 <th style="display: none">创建时间</th>
             </tr>
+            </thead>
+            <tbody id="tbs">
             <tr th:each="comment : ${commentList}">
                 <td th:text="${comment.id}"></td>
                 <td th:text="${comment.name}"></td>
                 <td th:text="${comment.comment}"></td>
                 <td th:text="${comment.createTime}" style="display: none"></td>
             </tr>
+            </tbody>
         </table>
+        <div id="page"></div>
     </div>
-    <div id="test1"></div>
+
 </div>
 
 </body>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+
+    $(function () {
+        showPage();
+    });
+
+    function showPage() {
+        layui.use('laypage', function () {
+            var laypage = layui.laypage;
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
+                , count: [[${commentList.total}]] //数据总数，从服务端得到
+                , limit: [[${commentList.pageSize}]]
+                , limits: [5, 10, 20, 30]
+                , curr: [[${commentList.pageNum}]]
+                , layout: ['prev', 'page', 'next', 'limit', 'refresh']
+                , theme: '#2B679C'
+                , jump: function (obj, first) {
+                    //obj包含了当前分页的所有参数，比如：
+                    debugger;
+                    console.log(obj);
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+
+                    // 首次不执行
+                    if (!first) {
+                        location.href = "queryComment?page=" + obj.curr + "&pageSize=" + obj.limit;
+                    }
+                }
+            });
+        });
+    }
+
+
     function showMeal() {
         var random = Math.floor(Math.random() * 10);
         var result = random % 5;
@@ -260,7 +299,7 @@
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log('测试error');
-                alert(XMLHttpRequest.status); // 200
+                alert(XMLHttpRequest.status); // 状态码
                 console.log(XMLHttpRequest.status);
                 alert(errorThrown); // SyntaxError: Unexpected end of input
                 console.log(errorThrown);
@@ -269,20 +308,8 @@
     }
 
     function skip() {
-        window.location.href = 'queryComment';
+        location.href = 'queryComment?page=1&pageSize=5';
     }
-
-    // 分页
-    layui.use('laypage', function(){
-        var laypage = layui.laypage;
-
-        //执行一个laypage实例
-        laypage.render({
-            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-            ,count: 50 //数据总数，从服务端得到
-        });
-    });
-
 
 </script>
 </html>
