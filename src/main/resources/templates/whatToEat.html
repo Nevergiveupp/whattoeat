@@ -135,7 +135,7 @@
                 <th>id</th>
                 <th>姓名</th>
                 <th>评论</th>
-                <th style="display: none">创建时间</th>
+                <th>创建时间</th>
             </tr>
             </thead>
             <tbody id="tbs">
@@ -143,7 +143,7 @@
                 <td th:text="${comment.id}"></td>
                 <td th:text="${comment.name}"></td>
                 <td th:text="${comment.comment}"></td>
-                <td th:text="${comment.createTime}" style="display: none"></td>
+                <td th:text="${comment.createTime}"></td>
             </tr>
             </tbody>
         </table>
@@ -164,7 +164,7 @@
             var laypage = layui.laypage;
             //执行一个laypage实例
             laypage.render({
-                elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
+                elem: 'page' //elementID，不用加 #
                 , count: [[${commentList.total}]] //数据总数，从服务端得到
                 , limit: [[${commentList.pageSize}]]
                 , limits: [5, 10, 20, 30]
@@ -173,11 +173,9 @@
                 , theme: '#2B679C'
                 , jump: function (obj, first) {
                     //obj包含了当前分页的所有参数，比如：
-                    debugger;
                     console.log(obj);
                     console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
                     console.log(obj.limit); //得到每页显示的条数
-
                     // 首次不执行
                     if (!first) {
                         location.href = "queryComment?page=" + obj.curr + "&pageSize=" + obj.limit;

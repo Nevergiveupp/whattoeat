@@ -3,6 +3,9 @@ package com.wzc.whattoeat.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,6 +62,20 @@ public final class DateUtil {
             return null;
         }
         return dateformat.format(date);
+    }
+
+    public static Date parseDate(String source, String pattern) {
+        if (StringUtils.isEmpty(source) || StringUtils.isEmpty(pattern)) {
+            return null;
+        }
+        Date date = null;
+        DateFormat format = new SimpleDateFormat(pattern);
+        try {
+            date = format.parse(source);
+        } catch (ParseException e) {
+            LOGGER.error("日期字符串不能转换！");
+        }
+        return date;
     }
 
 }

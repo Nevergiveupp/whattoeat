@@ -34,9 +34,6 @@ public class CommentServiceImpl implements CommentService {
     public Page<Comment> findAllByPage(Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         List<Comment> list = commentMapper.findAll();
-        for (Comment comment : list) {
-            System.out.println(comment.getCreateTime());//TODO 从数据库获取创建时间为空
-        }
 //        System.out.println("总记录数：" + pages.getTotal());
 //        System.out.println("当前页：" + pages.getPageNum());
 //        System.out.println("每页记录数：" + pages.getPageSize());
