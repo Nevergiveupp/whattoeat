@@ -13,25 +13,48 @@
       id, name, comment, create_time
     </sql>
 
+    <sql id="byCondition">
+        <where>
+            1=1
+            <if test="name != null and name !=''">
+                AND name LIKE "%"#{name,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="comment != null and comment !=''">
+                AND comment LIKE "%"#{comment,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="createDateStart != null and createDateStart !='' and createDateEnd != null and createDateEnd !=''">
+                AND create_time between str_to_date(#{createDateStart},'%Y-%m-%d %H:%i:%s') and str_to_date(#{createDateEnd},'%Y-%m-%d %H:%i:%s')
+            </if>
+        </where>
+    </sql>
+
     <select id="findById" resultType="com.wzc.whattoeat.domain.Comment" resultMap="commentResultMap">
-        select
+        SELECT
           <include refid="Base_Query_List"/>
-        from comment_record where id = #{id}
+        FROM comment_record WHERE id = #{id}
     </select>
 
     <select id="findAll" resultType="com.wzc.whattoeat.domain.Comment" resultMap="commentResultMap">
-        select
+        SELECT
           <include refid="Base_Query_List"/>
-        from comment_record
+        FROM comment_record
     </select>
 
     <insert id="saveComment" parameterType="com.wzc.whattoeat.domain.Comment">
-        insert into comment_record (name, comment, create_time)
-        values(#{name,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, now())
+        INSERT INTO comment_record (name, comment, create_time)
+        VALUES(#{name,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, now())
     </insert>
 
     <select id="queryTotalCount" resultType="java.lang.Integer">
-        select count(0) from comment_record
+        SELECT count(0) FROM comment_record
+    </select>
+
+    <select id="queryByCondition" parameterType="java.util.Map" resultMap="commentResultMap">
+        SELECT
+          <include refid="Base_Query_List"/>
+        FROM activity_info
+          <include refid="byCondition"/>
+        ORDER BY id DESC
     </select>
 
 </mapper>
