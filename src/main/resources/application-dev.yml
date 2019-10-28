@@ -13,6 +13,8 @@ spring:
     password: 123
     url: jdbc:mysql://localhost:3306/whattoeat?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  resources:
+    static-locations: classpath:/templates  #访问静态页面
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml

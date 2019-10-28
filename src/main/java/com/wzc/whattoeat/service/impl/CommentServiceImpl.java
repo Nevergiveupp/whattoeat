@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 〈评论Service实现类〉<br>
+ * 〈评论Service层实现类〉<br>
  * 〈功能详细描述〉
  *
  * @author 88449524

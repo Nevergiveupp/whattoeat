@@ -15,24 +15,28 @@ public interface CommentService {
 
     /**
      * 根据id查询评论
+     *
      * @return
      */
     Comment findById(Long id);
 
     /**
      * 查询所有评论
+     *
      * @return
      */
     Page<Comment> findAllByPage(Integer page, Integer pageSize);
 
     /**
      * 新增评论
+     *
      * @param comment
      */
     void saveComment(Comment comment);
 
     /**
      * 查询评论总条数
+     *
      * @return
      */
     int queryTotalCount();
