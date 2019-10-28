@@ -1,10 +1,7 @@
 package com.wzc.whattoeat.service.intf;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import com.wzc.whattoeat.domain.Comment;
-
-import java.util.List;
 
 /**
  * 〈评论Service接口〉<br>
