@@ -20,11 +20,46 @@
       "unicode_decimal": 58933
     },
     {
+      "icon_id": "1277690",
+      "name": "海鲜",
+      "font_class": "haixian",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "1509480",
+      "name": "饭",
+      "font_class": "icon-test",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "3904383",
+      "name": "老奶奶",
+      "font_class": "laonainai",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "4485651",
+      "name": "踩",
+      "font_class": "cai",
+      "unicode": "e52a",
+      "unicode_decimal": 58666
+    },
+    {
       "icon_id": "5089139",
       "name": "粥",
       "font_class": "zhou",
       "unicode": "e70e",
       "unicode_decimal": 59150
+    },
+    {
+      "icon_id": "5203291",
+      "name": "双列",
+      "font_class": "shuanglie",
+      "unicode": "e632",
+      "unicode_decimal": 58930
     },
     {
       "icon_id": "5642672",

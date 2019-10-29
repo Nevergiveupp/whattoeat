@@ -3,9 +3,12 @@ package com.wzc.whattoeat.controller;
 import com.wzc.whattoeat.domain.Result;
 import com.wzc.whattoeat.domain.User;
 import com.wzc.whattoeat.service.intf.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 〈用户Controller〉<br>
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -29,8 +34,19 @@ public class UserController {
      * @return Result
      */
     @RequestMapping(value = "/register")
-    public Result register(User user) {
-        return userService.register(user);
+    public ModelAndView register(User user) {
+        LOGGER.debug("注册用户信息-开始");
+        ModelAndView mav = new ModelAndView();
+        Result result = userService.register(user);
+        if (result.isSuccess()) {
+            LOGGER.debug("注册成功");
+            mav.setViewName("redirect:/login.html");
+        } else {
+            LOGGER.error("注册失败");
+            mav.setViewName("redirect:/register.html");
+        }
+        LOGGER.debug("注册用户信息-结束");
+        return mav;
     }
 
     /**
@@ -40,8 +56,19 @@ public class UserController {
      * @return Result
      */
     @RequestMapping(value = "/login")
-    public Result login(User user) {
-        return userService.login(user);
+    public ModelAndView login(User user) {
+        LOGGER.debug("用户登录-开始");
+        ModelAndView mav = new ModelAndView();
+        Result result = userService.login(user);
+        if (result.isSuccess()) {
+            LOGGER.debug("用户名密码验证正确，用户登录成功");
+            mav.setViewName("redirect:/comment/queryComment?page=1&pageSize=5");
+        } else {
+            LOGGER.error("用户名密码验证失败，请重新登录");
+            mav.setViewName("redirect:/login.html");
+        }
+        LOGGER.debug("用户登录-结束");
+        return mav;
     }
 
 }

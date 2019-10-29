@@ -24,6 +24,7 @@ mybatis:
 #showSql
 logging:
   level:
+    com.wzc: debug
     com:
       example:
         mapper : debug
