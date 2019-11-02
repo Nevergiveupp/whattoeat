@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>吃啥</title>
+    <title>吃什么</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
@@ -16,7 +16,6 @@
           type="text/css"/>
     <link th:href="@{/plugins/font_a4odpaijq7g/iconfont.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/plugins/layui/css/layui.css}" rel="stylesheet" type="text/css">
-
 </head>
 <style>
     .form-inline {
@@ -95,7 +94,7 @@
         <div id="menu" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">吃什么</a></li>
-                <li><a href="#">留言板</a></li>
+                <li><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>
                 <!--下拉菜单功能的实现-->
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     关于<span class="caret"></span></a>
@@ -104,6 +103,9 @@
                         <li><a href="#">作者</a></li>
                     </ul>
                 </li>
+                <li><a href="../login.html">登入</a></li>
+                <li><a href="../register.html">注册</a></li>
+                <li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>
             </ul>
         </div>
     </div>
@@ -180,60 +182,6 @@
             </button>
         </div>
     </div>
-
-    <div class="panel panel-primary layui-colla-item">
-        <div class="panel-heading layui-colla-title">
-            <h3 class="panel-title"><i class="fa fa-commenting-o" style="font-size:24px"></i> 留言板
-            </h3>
-        </div>
-        <div id="commentDiv" class="layui-colla-content layui-show">
-            <button id="showComment" type="button" class="btn btn-primary" onclick="showComment();">
-                <i class="fa fa-edit" style="font-size: 24px"></i> 点此留言，在下方展示
-            </button>
-            <form id="form1" method='POST' enctype="multipart/form-data">
-                <input name="id" id="id" style="display: none;"/>
-                <div class="form-inline">
-                    <label for="name">姓名：</label>
-                    <input id="name" class="form-control" disabled="disabled"/>
-                </div>
-                <div class="form-inline">
-                    <label for="comment" style="vertical-align: top">留言：</label>
-                    <textarea id="comment" class="form-control" disabled="disabled"></textarea>
-                </div>
-            </form>
-            <div class="form-inline">
-                <button id="submitComment" type="button" class="btn btn-primary" onclick="submitComment();">
-                    提交
-                </button>
-            </div>
-
-            <br>
-
-            <label for="commentTable">历史评论：</label>
-            <div class="table-responsive" style="padding: 8px">
-                <table class="table table-striped table-hover table-bordered table-condensed" id="commentTable">
-                    <thead>
-                    <tr class="info">
-                        <th style="display: none">id</th>
-                        <th>姓名</th>
-                        <th>评论</th>
-                        <th>创建时间</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tbs">
-                    <tr th:each="comment : ${commentList}">
-                        <td th:text="${comment.id}" style="display: none"></td>
-                        <td th:text="${comment.name}"></td>
-                        <td th:text="${comment.comment}"></td>
-                        <td th:text="${comment.createTime}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div id="page"></div>
-            </div>
-        </div>
-
-    </div>
 </div>
 
 </body>
@@ -242,36 +190,6 @@
 
     var menu01 = ["12块套餐", "大鸡腿", "煲仔饭", "重庆面", "香锅"];
     var menu02 = ["海鲜焖鸡", "双拼饭", "难吃面", "老娘舅", "如意菜饭"];
-
-    $(function () {
-        showPage();
-    });
-
-    function showPage() {
-        layui.use('laypage', function () {
-            var laypage = layui.laypage;
-            //执行一个laypage实例
-            laypage.render({
-                elem: 'page' //elementID，不用加 #
-                , count: [[${commentList.total}]] //数据总数，从服务端得到
-                , limit: [[${commentList.pageSize}]]
-                , limits: [5, 10, 20, 30]
-                , curr: [[${commentList.pageNum}]]
-                , layout: ['prev', 'page', 'next', 'limit', 'refresh']
-                , theme: '#2B679C'
-                , jump: function (obj, first) {
-                    //obj包含了当前分页的所有参数，比如：
-                    console.log(obj);
-                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    console.log(obj.limit); //得到每页显示的条数
-                    // 首次不执行
-                    if (!first) {
-                        location.href = "queryComment?page=" + obj.curr + "&pageSize=" + obj.limit;
-                    }
-                }
-            });
-        });
-    }
 
     function showMeal() {
         var menuSelect = $("#menuSelect option:selected").val();
@@ -349,7 +267,7 @@
     function showMeal2() {
         var menuSelect2 = $("#menuSelect2 option:selected").val();
         var random = Math.floor(Math.random() * 10);
-        var result = random % 6;
+        var result = random % 5;
         var icon = "";
         if (result === 0) {
             if (menuSelect2 == "01"){
@@ -450,51 +368,6 @@
                 tipsMore: true
             });
         }
-    }
-
-    function showComment() {
-        layer.prompt({title: '请输入您的姓名，并确认', formType: 3}, function (name, index) {
-            layer.close(index);
-            layer.prompt({title: '请输入您的建议，并确认', formType: 2}, function (text, index) {
-                layer.close(index);
-                layer.msg('完毕！您的姓名：' + name + '<br>您写下了：' + text + '<br>请点击提交！');
-                $("#name").val(name);
-                $("#comment").val(text);
-            });
-        });
-    }
-
-    // 提交
-    function submitComment() {
-        var id = $("#id").val();
-        var name = $("#name").val();
-        var comment = $("#comment").val();
-        var data = {
-            "id": id,
-            "name": name,
-            "comment": comment
-        };
-        $.ajax({
-            type: "post",
-            url: "saveComment",
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function () {
-                console.log("保存成功");
-                skip();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log('测试error');
-                alert(XMLHttpRequest.status); // 状态码
-                console.log(XMLHttpRequest.status);
-                alert(errorThrown); // SyntaxError: Unexpected end of input
-                console.log(errorThrown);
-            }
-        });
-    }
-
-    function skip() {
-        location.href = 'queryComment?page=1&pageSize=5';
     }
 
     layui.use(['element', 'layer'], function () {

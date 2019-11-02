@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * 〈用户Controller〉<br>
  * 〈功能详细描述〉
@@ -23,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
+    private static final String VIEW_PATH = "login";
 
     @Autowired
     private UserService userService;
@@ -56,13 +61,15 @@ public class UserController {
      * @return Result
      */
     @RequestMapping(value = "/login")
-    public ModelAndView login(User user) {
+    public ModelAndView login(User user, HttpServletRequest request) {
         LOGGER.debug("用户登录-开始");
         ModelAndView mav = new ModelAndView();
         Result result = userService.login(user);
         if (result.isSuccess()) {
             LOGGER.debug("用户名密码验证正确，用户登录成功");
-            mav.setViewName("redirect:/comment/queryComment?page=1&pageSize=5");
+            mav.setViewName("redirect:/wte/index");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("username", user.getUsername());
         } else {
             LOGGER.error("用户名密码验证失败，请重新登录");
             mav.setViewName("redirect:/login.html");

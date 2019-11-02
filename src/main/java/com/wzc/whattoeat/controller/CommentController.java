@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/comment")
 public class CommentController {
 
-    private static final String VIEW_PATH = "whatToEat";
+    private static final String VIEW_PATH = "comment";
 
     @Autowired
     private CommentService commentService;
