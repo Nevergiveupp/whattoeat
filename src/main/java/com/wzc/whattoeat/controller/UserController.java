@@ -27,10 +27,22 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    private static final String VIEW_PATH = "login";
+    private static final String VIEW_LOGIN_PATH = "login";
+
+    private static final String VIEW_REGISTER_PATH = "register";
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 展示注册页
+     *
+     * @return
+     */
+    @RequestMapping(value = "showRegister")
+    public ModelAndView showRegister() {
+        return new ModelAndView(VIEW_REGISTER_PATH);
+    }
 
     /**
      * 注册
@@ -45,13 +57,25 @@ public class UserController {
         Result result = userService.register(user);
         if (result.isSuccess()) {
             LOGGER.debug("注册成功");
+            mav.addObject("result", result);
             mav.setViewName("redirect:/login.html");
         } else {
             LOGGER.error("注册失败");
+            mav.addObject("result", result);
             mav.setViewName("redirect:/register.html");
         }
         LOGGER.debug("注册用户信息-结束");
         return mav;
+    }
+
+    /**
+     * 展示登录页
+     *
+     * @return
+     */
+    @RequestMapping(value = "showLogin")
+    public ModelAndView showLogin() {
+        return new ModelAndView(VIEW_LOGIN_PATH);
     }
 
     /**
@@ -67,12 +91,14 @@ public class UserController {
         Result result = userService.login(user);
         if (result.isSuccess()) {
             LOGGER.debug("用户名密码验证正确，用户登录成功");
+            mav.addObject("result", result);
             mav.setViewName("redirect:/wte/index");
             HttpSession session = request.getSession(true);
             session.setAttribute("username", user.getUsername());
         } else {
             LOGGER.error("用户名密码验证失败，请重新登录");
-            mav.setViewName("redirect:/login.html");
+            mav.addObject("result", result);
+            mav.setViewName("redirect:/user/showLogin");
         }
         LOGGER.debug("用户登录-结束");
         return mav;

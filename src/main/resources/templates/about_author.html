@@ -1,0 +1,124 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>作者</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
+    <link th:href="@{/css/theme.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
+          type="text/css"/>
+    <link th:href="@{/plugins/font_a4odpaijq7g/iconfont.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/plugins/layui/css/layui.css}" rel="stylesheet" type="text/css">
+</head>
+<style>
+    .form-inline {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        display: inline-block;
+        width: auto;
+    }
+
+    .layui-colla-title {
+        padding: 5px 15px 10px 35px;
+    }
+
+    .panel .panel-heading {
+        line-height: 42px;
+    }
+
+    input {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .btn-primary {
+        margin-left: 5px;
+        width: 200px;
+    }
+
+    #comment {
+        display: inline-block;
+        height: 100px;
+        margin-left: 15px;
+        width: auto;
+    }
+
+    #commentTable {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    #commentTable th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #commentDiv button {
+        margin-left: 60px;
+    }
+
+    #submitComment {
+        width: 90px;
+    }
+
+    #logoDiv {
+        text-align: center;
+        margin-top: 50px;
+    }
+</style>
+<body>
+<nav class="nav navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">WhatToEat</a>
+        </div>
+        <div id="menu" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="../wte/index">吃什么</a></li>
+                <li><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>
+                <!--下拉菜单功能的实现-->
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    关于<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../about/showSite">本站</a></li>
+                        <li class="active"><a href="../about/showAuthor">作者</a></li>
+                    </ul>
+                </li>
+                <li><a href="../user/showLogin">登入</a></li>
+                <li><a href="../user/showRegister">注册</a></li>
+                <li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>
+    我是一棵无人知晓的小草~~~
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>留言板</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
+    <link th:href="@{/css/theme.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
+          type="text/css"/>
+    <link th:href="@{/plugins/font_a4odpaijq7g/iconfont.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/plugins/layui/css/layui.css}" rel="stylesheet" type="text/css">
+
+</head>
+<style>
+    .form-inline {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        display: inline-block;
+        width: auto;
+    }
+
+    .layui-colla-title {
+        padding: 5px 15px 10px 35px;
+    }
+
+    .panel .panel-heading {
+        line-height: 42px;
+    }
+
+    input {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .btn-primary {
+        margin-left: 5px;
+        width: 200px;
+    }
+
+    #comment {
+        display: inline-block;
+        height: 100px;
+        margin-left: 15px;
+        width: auto;
+    }
+
+    #commentTable {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    #commentTable th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #commentDiv button {
+        margin-left: 60px;
+    }
+
+    #submitComment {
+        width: 90px;
+    }
+
+    #logoDiv {
+        text-align: center;
+        margin-top: 50px;
+    }
+</style>
+<body>
+<nav class="nav navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">WhatToEat</a>
+        </div>
+        <div id="menu" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="../wte/index">吃什么</a></li>
+                <li class="active"><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>
+                <!--下拉菜单功能的实现-->
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    关于<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../about/showSite">本站</a></li>
+                        <li><a href="../about/showAuthor">作者</a></li>
+                    </ul>
+                </li>
+                <li><a href="../user/showLogin">登入</a></li>
+                <li><a href="../user/showRegister">注册</a></li>
+                <li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="logoDiv">
+    <img alt="logo" th:src="@{/img/1.png}" width="375px" id="logo">
+</div>
+
+<div class="layui-collapse" lay-accordion>
+    <div class="panel panel-primary layui-colla-item">
+        <div class="panel-heading layui-colla-title">
+            <h3 class="panel-title"><i class="fa fa-commenting-o" style="font-size:24px"></i> 留言板
+            </h3>
+        </div>
+        <div id="commentDiv" class="layui-colla-content layui-show">
+            <button id="showComment" type="button" class="btn btn-primary" onclick="showComment();">
+                <i class="fa fa-edit" style="font-size: 24px"></i> 点此留言，在下方展示
+            </button>
+            <form id="form1" method='POST' enctype="multipart/form-data">
+                <input name="id" id="id" style="display: none;"/>
+                <div class="form-inline">
+                    <label for="name">姓名：</label>
+                    <input id="name" class="form-control" disabled="disabled"/>
+                </div>
+                <div class="form-inline">
+                    <label for="comment" style="vertical-align: top">留言：</label>
+                    <textarea id="comment" class="form-control" disabled="disabled"></textarea>
+                </div>
+            </form>
+            <div class="form-inline">
+                <button id="submitComment" type="button" class="btn btn-primary" onclick="submitComment();">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary layui-colla-item">
+        <div class="panel-heading layui-colla-title">
+            <h3 class="panel-title"><i class="fa fa-commenting-o" style="font-size:24px"></i> 历史评论
+            </h3>
+        </div>
+        <div class="layui-colla-content layui-show">
+            <div class="table-responsive" style="padding: 8px">
+                <table class="table table-striped table-hover table-bordered table-condensed" id="commentTable">
+                    <thead>
+                    <tr class="info">
+                        <th style="display: none">id</th>
+                        <th>姓名</th>
+                        <th>评论</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbs">
+                    <tr th:each="comment : ${commentList}">
+                        <td th:text="${comment.id}" style="display: none"></td>
+                        <td th:text="${comment.name}"></td>
+                        <td th:text="${comment.comment}"></td>
+                        <td th:text="${comment.createTime}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+
+    $(function () {
+        showPage();
+    });
+
+    function showPage() {
+        layui.use('laypage', function () {
+            var laypage = layui.laypage;
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'page' //elementID，不用加 #
+                , count: [[${commentList.total}]] //数据总数，从服务端得到
+                , limit: [[${commentList.pageSize}]]
+                , limits: [5, 10, 20, 30]
+                , curr: [[${commentList.pageNum}]]
+                , layout: ['prev', 'page', 'next', 'limit', 'refresh']
+                , theme: '#2B679C'
+                , jump: function (obj, first) {
+                    //obj包含了当前分页的所有参数，比如：
+                    console.log(obj);
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+                    // 首次不执行
+                    if (!first) {
+                        location.href = "queryComment?page=" + obj.curr + "&pageSize=" + obj.limit;
+                    }
+                }
+            });
+        });
+    }
+
+    function showComment() {
+        layer.prompt({title: '请输入您的姓名，并确认', formType: 3}, function (name, index) {
+            layer.close(index);
+            layer.prompt({title: '请输入您的建议，并确认', formType: 2}, function (text, index) {
+                layer.close(index);
+                layer.msg('完毕！您的姓名：' + name + '<br>您写下了：' + text + '<br>请点击提交！');
+                $("#name").val(name);
+                $("#comment").val(text);
+            });
+        });
+    }
+
+    // 提交
+    function submitComment() {
+        var id = $("#id").val();
+        var name = $("#name").val();
+        var comment = $("#comment").val();
+        var data = {
+            "id": id,
+            "name": name,
+            "comment": comment
+        };
+        $.ajax({
+            type: "post",
+            url: "saveComment",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function () {
+                console.log("保存成功");
+                skip();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log('测试error');
+                alert(XMLHttpRequest.status); // 状态码
+                console.log(XMLHttpRequest.status);
+                alert(errorThrown); // SyntaxError: Unexpected end of input
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function skip() {
+        location.href = 'queryComment?page=1&pageSize=5';
+    }
+
+    layui.use(['element', 'layer'], function () {
+        var element = layui.element;
+        var layer = layui.layer;
+
+        //监听折叠
+        element.on('collapse(test)', function (data) {
+            layer.msg('展开状态：' + data.show);
+        })
+    });
+
+</script>
+</html>
