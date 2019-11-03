@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <!-- meta data -->
@@ -114,19 +114,19 @@
                         <div class="signin-form">
 
                             <div class="form-group">
-                                <label for="signin_form">用户名</label>
-                                <input name="username" type="text" class="form-control" id="signin_form"
+                                <label for="username">用户名</label>
+                                <input name="username" type="text" class="form-control" id="username"
                                        placeholder="请输入用户名">
                             </div><!--/.form-group -->
                             <div class="form-group">
-                                <label for="signin_form">密码</label>
-                                <input type="password" class="form-control" id="signin_form" placeholder="请输入密码">
+                                <label for="password">密码</label>
+                                <input type="password" class="form-control" id="password" placeholder="请输入密码">
                             </div><!--/.form-group -->
-                            <div class="form-group">
-                                <label for="signin_form">确认密码</label>
-                                <input type="password" class="form-control" id="signin_form" placeholder="请再次输入密码">
-                            </div><!--/.form-group -->
-
+                            <!--<div class="form-group">
+                                <label for="confirmPassword">确认密码</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入密码">
+                            </div>--><!--/.form-group -->
+                            <div>注册失败</div>
                         </div><!--/.signin-form -->
                     </div><!--/.col -->
                 </div><!--/.row -->

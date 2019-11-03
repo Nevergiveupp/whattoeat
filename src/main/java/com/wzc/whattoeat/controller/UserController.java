@@ -58,11 +58,11 @@ public class UserController {
         if (result.isSuccess()) {
             LOGGER.debug("注册成功");
             mav.addObject("result", result);
-            mav.setViewName("redirect:/login.html");
+            mav.setViewName("redirect:/user/showLogin");
         } else {
             LOGGER.error("注册失败");
             mav.addObject("result", result);
-            mav.setViewName("redirect:/register.html");
+            mav.setViewName("redirect:/user/showRegister");
         }
         LOGGER.debug("注册用户信息-结束");
         return mav;
