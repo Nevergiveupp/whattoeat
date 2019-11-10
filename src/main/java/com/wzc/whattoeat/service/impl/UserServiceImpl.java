@@ -4,6 +4,8 @@ import com.wzc.whattoeat.dao.intf.UserMapper;
 import com.wzc.whattoeat.domain.Result;
 import com.wzc.whattoeat.domain.User;
 import com.wzc.whattoeat.service.intf.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,14 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public Result register(User user) {
+        LOGGER.debug("用户注册-服务-开始，入参:{}", user);
         Result result = new Result();
         result.setSuccess(false);
         result.setDetail(null);
@@ -30,11 +35,11 @@ public class UserServiceImpl implements UserService {
         try {
             User existUser = userMapper.findUserByName(user.getUsername());
             if (existUser != null) {
-                //用户名已存在
+                LOGGER.debug("用户名已存在，用户:{}", existUser);
                 result.setMsg("用户名已存在");
             } else {
                 userMapper.register(user);
-                //System.out.println(user.getId());
+                LOGGER.debug("用户注册成功，注册用户:{}", user);
                 result.setMsg("注册成功");
                 result.setSuccess(true);
                 result.setDetail(user);
@@ -43,11 +48,13 @@ public class UserServiceImpl implements UserService {
             result.setMsg(e.getMessage());
             e.printStackTrace();
         }
+        LOGGER.debug("用户注册-服务-结束，结果:{}", result);
         return result;
     }
 
     @Override
     public Result login(User user) {
+        LOGGER.debug("用户登录-服务-开始，入参:{}", user);
         Result result = new Result();
         result.setSuccess(false);
         result.setDetail(null);
@@ -65,6 +72,7 @@ public class UserServiceImpl implements UserService {
             result.setMsg(e.getMessage());
             e.printStackTrace();
         }
+        LOGGER.debug("用户登录-服务-结束，结果:{}", result);
         return result;
     }
 }
