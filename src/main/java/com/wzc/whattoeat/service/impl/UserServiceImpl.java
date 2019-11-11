@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
                 LOGGER.debug("用户名已存在，用户:{}", existUser);
                 result.setMsg("用户名已存在");
             } else {
-                userMapper.register(user);
+                userMapper.insertUser(user);
                 LOGGER.debug("用户注册成功，注册用户:{}", user);
                 result.setMsg("注册成功");
                 result.setSuccess(true);
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         result.setSuccess(false);
         result.setDetail(null);
         try {
-            Long userId = userMapper.login(user);
+            Long userId = userMapper.selectIdByUsernameAndPassword(user);
             if (userId == null) {
                 result.setMsg("用户名或密码错误");
             } else {
@@ -69,8 +69,8 @@ public class UserServiceImpl implements UserService {
                 result.setDetail(user);
             }
         } catch (Exception e) {
-            result.setMsg(e.getMessage());
-            e.printStackTrace();
+            LOGGER.error("用户登录-服务-异常，异常:{}", e.getMessage());
+//            e.printStackTrace();
         }
         LOGGER.debug("用户登录-服务-结束，结果:{}", result);
         return result;

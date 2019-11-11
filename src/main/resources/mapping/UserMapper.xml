@@ -17,13 +17,13 @@
           username = #{username}
     </select>
 
-    <insert id="register" parameterType="com.wzc.whattoeat.domain.User">
+    <insert id="insertUser" parameterType="com.wzc.whattoeat.domain.User">
         INSERT INTO
           user_info (id, username, password)
         VALUES(#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
     </insert>
 
-    <select id="login" resultType="java.lang.Long">
+    <select id="selectIdByUsernameAndPassword" resultType="java.lang.Long">
         SELECT
           id
         FROM

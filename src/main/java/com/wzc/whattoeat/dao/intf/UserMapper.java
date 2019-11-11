@@ -28,7 +28,7 @@ public interface UserMapper {
      *
      * @param user
      */
-    void register(User user);
+    void insertUser(User user);
 
     /**
      * 登录
@@ -36,5 +36,5 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    Long login(User user);
+    Long selectIdByUsernameAndPassword(User user);
 }

@@ -108,7 +108,7 @@
         <div class="sign-content">
             <h2 style="margin-top: 80px">注 册</h2>
 
-            <form action="/user/register" method="post">
+            <form action="/user/register" method="post" onsubmit="return check_form();">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="signin-form">
@@ -126,7 +126,6 @@
                                 <label for="confirmPassword">确认密码</label>
                                 <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入密码">
                             </div>--><!--/.form-group -->
-                            <div>testDiv</div>
                         </div><!--/.signin-form -->
                     </div><!--/.col -->
                 </div><!--/.row -->
@@ -210,7 +209,29 @@
 
 <script type="text/javascript" th:inline="javascript">
 
+    function check_form(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if(!username){
+            alert("请填写用户名！");
+            return false;
+        }
+        if(!password)  {
+            alert("请填写密码！");
+            return false;
+        }
+        if(!$("#styled-checkbox-2").get(0).checked) {
+            alert("必须接受我们的协议！");
+            return false;
+        } else {
+            alert("注册成功！请登录");
+            return true;
+        }
+    }
+
+
 
 </script>
+
 
 </html>

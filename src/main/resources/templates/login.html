@@ -108,7 +108,7 @@
         <div class="sign-content">
             <h2 style="margin-top: 40px">登 入</h2>
 
-            <form action="/user/login" method="post">
+            <form action="/user/login" method="post" onsubmit="return check_form();">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="signin-form">
@@ -211,39 +211,18 @@
 
 <script type="text/javascript" th:inline="javascript">
 
-    /*$(function () {
-        $("#login").click(function () {
-            var username = $("#username").val();
-            var password = $("#password").val();
-            if (!username) {
-                alert("请输入用户名！");
-                return;
-            } else if (!password) {
-                alert("请输入密码！");
-                return;
-            }
-
-            $.ajax({
-                type: "post",
-                url: '/user/login',
-                data: {
-                    "username": username,
-                    "password": password
-                },
-                success: function (result) {
-                    console.log("服务器返回数据：" + result);
-                    alert('登录成功');
-                    window.location.href = "/wte/index";
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log('登录失败');
-                    console.log(XMLHttpRequest.status);
-                    console.log(errorThrown);
-                }
-            });
-
-        });
-    });*/
+    function check_form(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if(!username){
+            alert("请填写用户名！");
+            return false;
+        }
+        if(!password)  {
+            alert("请填写密码！");
+            return false;
+        }
+    }
 
 
 </script>
