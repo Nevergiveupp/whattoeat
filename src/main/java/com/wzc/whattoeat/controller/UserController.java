@@ -28,9 +28,9 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    private static final String VIEW_LOGIN_PATH = "login";
+    private static final String VIEW_LOGIN_PATH = "login_owl";
 
-    private static final String VIEW_REGISTER_PATH = "register";
+    private static final String VIEW_REGISTER_PATH = "register_owl";
 
     @Autowired
     private UserService userService;

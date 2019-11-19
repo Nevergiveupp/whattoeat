@@ -213,7 +213,13 @@
         var username = $("#username").val();
         var password = $("#password").val();
         if(!username){
-            alert("请填写用户名！");
+            layer.open({
+                type: 1
+                , title: 'eee'
+                , shade: 0.6
+                , anim: 4
+                , content: 'aaa'
+            });
             return false;
         }
         if(!password)  {

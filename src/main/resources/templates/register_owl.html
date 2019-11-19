@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="readme-deploy" content="03b1bfc38283b23d3fc912f6a7b8f2787463e09f">
+    <meta name="readme-deploy" content="0fbdf8595f60f5daef33395b5de32c4ae051b147">
     <title>ReadMe: Interactive Developer Hubs</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="keywords" content="readme,developer hub,documentation">
     <meta name="description" content="Create beautiful product and API documentation with our developer friendly platform.">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
     <meta name="google-site-verification" content="02bkTvw0S-_3l_qaBCNepYM-Belw0uZwoS04h85_tAQ">
+    <link rel="stylesheet" href="https://use.typekit.net/xxi6uhs.css">
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="ReadMe Blog" href="https://blog.readme.io/rss/">
     <!--Opengraph tags-->
@@ -18,11 +19,11 @@
     <meta property="og:description" content="Create beautiful product and API documentation with our developer friendly platform.">
     <meta property="og:site_name" content="ReadMe">
     <meta property="fb:admins" content="1037213945">
-    <meta name="csrf-token" content="pXtHnTYu-a1EvvKmZcaQxMstq2eg5DQtIgoY">
+    <meta name="csrf-token" content="delVh4To-Uf2M4xXNXN3Lpiuvh36Xf3_qP8g">
     <!-- Application styles-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.readme.io/css/bundle-home.css?1572050112022">
-    <script src="https://cdn.readme.io/js/bundle-home.js?1572050112022"></script>
+    <link rel="stylesheet" href="https://cdn.readme.io/css/bundle-home.css?1574102421174">
+    <script src="https://cdn.readme.io/js/bundle-home.js?1574102421174"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-939457589"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -86,7 +87,7 @@
     </script>
     <!--if lt IE 9script(src="//html5shim.googlecode.com/svn/trunk/html5.js")-->
 </head>
-<body id="login" class="unloaded">
+<body id="register" class="unloaded">
 <div class="wrapper">
     <header>
         <nav class="nav navbar-inverse navbar-fixed-top">
@@ -112,43 +113,85 @@
                                 <li><a href="../about/showAuthor">作者</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="../user/showLogin">登入</a></li>
-                        <li><a href="../user/showRegister">注册</a></li>
+                        <li><a href="../user/showLogin">登入</a></li>
+                        <li class="active"><a href="../user/showRegister">注册</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="login" style="margin-top:40px;">
-        <form action="/user/login" method="post" class="container offset1 loginform">
-            <div id="owl-login">
-                <div class="eyes"></div>
-                <div class="arm-up-right"></div>
-                <div class="arm-up-left"></div>
-                <div class="arm-down-left"></div>
-                <div class="arm-down-right"></div>
-            </div>
-            <div class="pad">
-                <input type="hidden" name="_csrf" value="pXtHnTYu-a1EvvKmZcaQxMstq2eg5DQtIgoY">
-                <div class="control-group">
-                    <div class="controls">
-                        <label for="username" class="control-label fa fa-user"></label>
-                        <input id="username" type="text" name="username" placeholder="请输入用户名" tabindex="1" autofocus="autofocus" required class="form-control input-medium">
+        <div id="signup-background">
+            <div class="container books">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-1 col-md-7 col-sm-8 col-xs-12">
+                        <div id="form-parent">
+                            <div id="form-slider">
+                                <form id="signup-main" action="/user/register" method="post" class="container offset1 loginform form-horizontal">
+                                    <div class="pad">
+                                        <h2>注册</h2>
+                                        <input type="hidden" name="_csrf" value="delVh4To-Uf2M4xXNXN3Lpiuvh36Xf3_qP8g" class="form-control">
+                                        <input type="hidden" name="hash" class="form-control">
+                                        <div class="form-group">
+                                            <label for="email" class="control-label col-sm-4">
+                                                <div class="fa fa-envelope"></div>
+                                                <span>E-mail</span>
+                                            </label>
+                                            <div class="controls col-sm-8">
+                                                <input id="email" type="email" name="email" placeholder="请输入邮箱" value="" tabindex="1" autofocus="true" data-step="1" required class="form-control validate-style">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username" class="control-label col-sm-4">
+                                                <div class="fa fa-user"></div>
+                                                <span>用户名</span>
+                                            </label>
+                                            <div class="controls col-sm-8">
+                                                <input id="username" type="text" name="username" placeholder="请输入用户名" value="" tabindex="2" data-step="2" required class="form-control validate-style">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" class="control-label col-sm-4">
+                                                <div class="fa fa-asterisk"></div>
+                                                <span>密码</span>
+                                            </label>
+                                            <div class="controls col-sm-8">
+                                                <input id="password" type="password" name="password" placeholder="请输入密码" tabindex="3" autocomplete="false" data-step="3" required minlength="8" class="form-control validate-style">
+                                                <p class="info">至少8个字符，必须包含字母和数字</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="hidden" name="beta" value="docsrock" class="form-control">
+                                            <input type="hidden" name="alias" value="5dd41115a9cd4800683a5c3b" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <a href="/user/showLogin" tabindex="6" class="btn btn-link show-login text-muted">登入</a>
+                                        <button type="submit" tabindex="5" class="btn btn-primary">注册</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-4 hidden-xs">
+                        <div class="signup-text">
+                            <h3>你正在注册账户 :)</h3>
+                            <p>注册一个账户，以获得更佳体验</p>
+                        </div>
                     </div>
                 </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <label for="password" class="control-label fa fa-asterisk"></label>
-                        <input id="password" type="password" name="password" placeholder="请输入密码" tabindex="2" required class="form-control input-medium">
+                <div class="owl-signup">
+                    <div class="owl-foot-blocker"></div>
+                    <div class="owl-body">
+                        <div class="owl-eye left"></div>
+                        <div class="owl-eye right"></div>
                     </div>
+                    <div class="owl-arm"></div>
+                    <div class="owl-feet"></div>
                 </div>
             </div>
-            <div class="form-actions">
-                <a href="" tabindex="5" class="btn pull-left btn-link text-muted">忘记密码？</a>
-                <a href="/user/showRegister" tabindex="6" class="btn btn-link text-muted">注册</a>
-                <button type="submit" tabindex="4" class="btn btn-primary">登入</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>

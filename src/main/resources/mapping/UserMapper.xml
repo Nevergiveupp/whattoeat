@@ -6,11 +6,12 @@
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
 
     <select id="findUserByName" resultMap="userResultMap" resultType="java.lang.String">
         SELECT
-          username, password
+          username, password, email
         FROM
           user_info
         WHERE
@@ -19,8 +20,8 @@
 
     <insert id="insertUser" parameterType="com.wzc.whattoeat.domain.User">
         INSERT INTO
-          user_info (id, username, password)
-        VALUES(#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+          user_info (id, username, password, email)
+        VALUES(#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
     </insert>
 
     <select id="selectIdByUsernameAndPassword" resultType="java.lang.Long">
