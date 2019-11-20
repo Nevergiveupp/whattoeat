@@ -11,7 +11,6 @@
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
         <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
-
     </resultMap>
 
     <sql id="all_column">
@@ -29,9 +28,20 @@
 
     <insert id="insertUser" parameterType="com.wzc.whattoeat.domain.User">
         INSERT INTO
-          user_info (id, username, password, email)
-        VALUES(#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+          user_info (id, username, password, email, create_time)
+        VALUES(#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
     </insert>
+
+    <update id="updateMinorInfoByUsername" parameterType="com.wzc.whattoeat.domain.User">
+        UPDATE
+          user_info
+        SET
+          nick_name = #{nickName,jdbcType=VARCHAR}
+          , mobile = #{nickName,jdbcType=VARCHAR}
+          , gender = #{gender,jdbcType=VARCHAR}
+        WHERE
+          username = #{username,jdbcType=VARCHAR}
+    </update>
 
     <select id="selectIdByUsernameAndPassword" resultType="java.lang.Long">
         SELECT

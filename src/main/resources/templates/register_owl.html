@@ -170,7 +170,7 @@
                                         <button type="submit" tabindex="5" class="btn btn-primary">注册</button>
                                     </div>
                                 </form>
-                                <form id="signup-project" action="/users/minorInfo" method="post" class="container offset1 loginform form-horizontal">
+                                <form id="signup-project" action="/user/registerMinorInfo" method="post" class="container offset1 loginform form-horizontal">
                                     <input type="hidden" name="_csrf" value="delVh4To-Uf2M4xXNXN3Lpiuvh36Xf3_qP8g" class="form-control">
                                     <div class="pad">
                                         <div class="form-group">
@@ -193,7 +193,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group dropdown-container">
-                                            <label for="useCase" class="control-label col-sm-4">
+                                            <label for="gender" class="control-label col-sm-4">
                                                 <div class="fa fa-male" style="font-size:20px"></div>
                                                 <span>性别</span>
                                             </label>
@@ -202,14 +202,14 @@
                                                     <div class="question">你是男生还是女生？</div>
                                                     <div id="signup-project-options">
                                                         <div class="signup-project-option">
-                                                            <input id="signup-project-option-api" type="radio" value="api" name="useCase" data-step="3">
+                                                            <input id="signup-project-option-api" type="radio" value="api" name="gender" data-step="3">
                                                             <label for="signup-project-option-api">
                                                                 <i class="fa fa-mars" style="font-size:40px;margin-top: 10px"></i>
                                                                 <span>男生</span>
                                                             </label>
                                                         </div>
                                                         <div class="signup-project-option">
-                                                            <input id="signup-project-option-product" type="radio" value="product" name="useCase" data-step="3">
+                                                            <input id="signup-project-option-product" type="radio" value="product" name="gender" data-step="3">
                                                             <label for="signup-project-option-product">
                                                                 <i class="fa fa-mars-stroke" style="font-size: 40px;margin-top: 10px"></i>
                                                                 <span>女生</span>
@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="form-actions">
                                         <a id="skip-this" href="/" class="btn btn-link text-muted">跳过此步</a>
-                                        <button type="submit" class="btn btn-primary">创建账户</button>
+                                        <button type="submit" class="btn btn-primary">提交</button>
                                     </div>
                                 </form>
                             </div>

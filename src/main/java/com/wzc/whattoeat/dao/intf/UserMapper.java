@@ -31,6 +31,13 @@ public interface UserMapper {
     void insertUser(User user);
 
     /**
+     * 更新用户次要信息
+     * @param username
+     * @return
+     */
+    int updateMinorInfoByUsername(String username);
+
+    /**
      * 登录
      *
      * @param user

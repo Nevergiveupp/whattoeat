@@ -22,6 +22,14 @@ public interface UserService {
     Result register(User user);
 
     /**
+     * 更新用户次要信息
+     *
+     * @param user
+     * @return
+     */
+    Result registerMinorInfo(User user);
+
+    /**
      * 登录
      *
      * @param user

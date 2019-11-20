@@ -6,7 +6,6 @@ import com.wzc.whattoeat.service.intf.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,29 +69,29 @@ public class UserController {
     }
 
     /**
-     * 注册2
+     * 次要信息提交
      *
      * @param user 参数封装
      * @return Result
      */
-    /* TODO 存储用户次要信息
-    @RequestMapping(value = "/minorInfo")
-    public ModelAndView minorInfo(User user) {
-        LOGGER.debug("注册用户信息-开始");
+
+    @RequestMapping(value = "/registerMinorInfo")
+    public ModelAndView registerMinorInfo(User user) {
+        LOGGER.debug("次要信息提交-开始");
         ModelAndView mav = new ModelAndView();
-        Result result = userService.registMinorInfo(user);
+        Result result = userService.registerMinorInfo(user);
         if (result.isSuccess()) {
-            LOGGER.debug("注册成功");
+            LOGGER.debug("更新用户次要信息成功,result:{}", result.getMsg());
             mav.addObject("result", result);
             mav.setViewName("redirect:/user/showLogin");
         } else {
-            LOGGER.error("注册失败");
+            LOGGER.error("更新用户次要信息失败,result:{}", result.getMsg());
             mav.addObject("result", result);
             mav.setViewName("redirect:/user/showRegister");
         }
-        LOGGER.debug("注册用户信息-结束");
+        LOGGER.debug("次要信息提交-结束");
         return mav;
-    }*/
+    }
 
     /**
      * 展示登录页
@@ -129,7 +128,6 @@ public class UserController {
         LOGGER.debug("用户登录-结束");
         return mav;
     }
-
 
 
 }
