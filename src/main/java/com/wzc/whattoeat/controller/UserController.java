@@ -70,6 +70,31 @@ public class UserController {
     }
 
     /**
+     * 注册2
+     *
+     * @param user 参数封装
+     * @return Result
+     */
+    /* TODO 存储用户次要信息
+    @RequestMapping(value = "/minorInfo")
+    public ModelAndView minorInfo(User user) {
+        LOGGER.debug("注册用户信息-开始");
+        ModelAndView mav = new ModelAndView();
+        Result result = userService.registMinorInfo(user);
+        if (result.isSuccess()) {
+            LOGGER.debug("注册成功");
+            mav.addObject("result", result);
+            mav.setViewName("redirect:/user/showLogin");
+        } else {
+            LOGGER.error("注册失败");
+            mav.addObject("result", result);
+            mav.setViewName("redirect:/user/showRegister");
+        }
+        LOGGER.debug("注册用户信息-结束");
+        return mav;
+    }*/
+
+    /**
      * 展示登录页
      *
      * @return
@@ -104,5 +129,7 @@ public class UserController {
         LOGGER.debug("用户登录-结束");
         return mav;
     }
+
+
 
 }

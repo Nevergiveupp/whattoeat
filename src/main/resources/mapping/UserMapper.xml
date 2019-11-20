@@ -7,11 +7,20 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+
     </resultMap>
+
+    <sql id="all_column">
+      username, password, email, mobile, nick_name, gender, create_time
+    </sql>
 
     <select id="findUserByName" resultMap="userResultMap" resultType="java.lang.String">
         SELECT
-          username, password, email
+          <include refid="all_column"></include>
         FROM
           user_info
         WHERE

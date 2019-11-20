@@ -21,4 +21,12 @@ public class User {
 
     private String email;
 
+    private String mobile;
+
+    private String nickName;
+
+    private String gender;
+
+    private String createTime;
+
 }
