@@ -19,9 +19,6 @@ import java.util.Date;
  * @since [产品/模块版本] （可选）
  */
 public final class DateUtil {
-    public static final String TEST_A = "aaaaaaa";
-    public static final String TEST_B = "bbbbbbb";
-
     /** 时间格式类型yyyyMMdd **/
     public static final String DATE_FORMATE_YYYY_MM_DD_HHMMSS = "yyyy-MM-dd-HH.mm.ss";
     public static final String DATE_FORMATE_MM_DD_HHMMSS = "MM-dd HH:mm:ss";
