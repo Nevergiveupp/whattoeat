@@ -20,6 +20,7 @@ import java.util.Date;
  */
 public final class DateUtil {
     public static final String TEST_A = "aaaaaaa";
+    public static final String TEST_B = "bbbbbbb";
 
     /** 时间格式类型yyyyMMdd **/
     public static final String DATE_FORMATE_YYYY_MM_DD_HHMMSS = "yyyy-MM-dd-HH.mm.ss";
