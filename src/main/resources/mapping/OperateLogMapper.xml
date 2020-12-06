@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzc.whattoeat.dao.intf.OperateLogMapper">
+
+    <resultMap id="operateLogResultMap" type="com.wzc.whattoeat.domain.OperateLog">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="visit_time" jdbcType="TIMESTAMP" property="visitTime"/>
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="execution_time" jdbcType="VARCHAR" property="executionTime" />
+        <result column="method" jdbcType="VARCHAR" property="method" />
+    </resultMap>
+
+    <sql id="Base_Query_List">
+      id, visit_time, username, ip, url, execution_time, method
+    </sql>
+
+    <select id="findAll" resultType="com.wzc.whattoeat.domain.OperateLog" resultMap="operateLogResultMap">
+        SELECT
+          <include refid="Base_Query_List"/>
+        FROM operate_log
+    </select>
+
+    <insert id="save" parameterType="com.wzc.whattoeat.domain.OperateLog">
+        INSERT INTO operate_log (
+          visit_time,
+        <if test="username != null and username !=''">
+          username,
+        </if>
+          ip,
+          url,
+          execution_time,
+          method
+        )
+        VALUES(
+          #{visitTime},
+        <if test="username != null and username !=''">
+          #{username},
+        </if>
+          #{ip},
+          #{url},
+          #{executionTime},
+          #{method}
+        )
+    </insert>
+
+
+
+</mapper>
