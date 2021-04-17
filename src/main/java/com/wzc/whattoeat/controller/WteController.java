@@ -1,10 +1,9 @@
 package com.wzc.whattoeat.controller;
 
-import com.github.pagehelper.Page;
-import com.wzc.whattoeat.domain.Comment;
-import com.wzc.whattoeat.service.intf.CommentService;
+import com.wzc.whattoeat.service.intf.WteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -21,14 +20,35 @@ public class WteController {
 
     private static final String VIEW_PATH = "whatToEat";
 
+    @Autowired
+    private WteService wteService;
+
     /**
      * 主页展示
      *
      * @return
      */
-    @RequestMapping(value = "index")
+    @RequestMapping("/index")
     public ModelAndView showIndex() {
         return new ModelAndView(VIEW_PATH);
+    }
+
+    /**
+     * 查询所有餐厅
+     *
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/queryAllDiningHall")
+    public ModelAndView queryAllDiningHall() {
+
+        ModelAndView modelAndView = new ModelAndView(VIEW_PATH);
+//        Page<Comment> commentList = wteService.findAll(page, pageSize);
+//        modelAndView.addObject("commentList", commentList);
+//        int count = wteService.queryTotalCount();
+//        modelAndView.addObject("count",count);
+        return modelAndView;
     }
 
 }
