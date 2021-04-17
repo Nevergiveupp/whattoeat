@@ -30,7 +30,7 @@ public class CommentController {
      * @param id
      * @return
      */
-    @RequestMapping("findComment/{id}")
+    @RequestMapping("/findComment/{id}")
     public String findById(@PathVariable Long id) {
         return commentService.findById(id).toString();
     }
@@ -42,7 +42,7 @@ public class CommentController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "queryComment")
+    @RequestMapping("/queryComment")
     public ModelAndView queryComment(Integer page, Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(VIEW_PATH);
@@ -58,7 +58,7 @@ public class CommentController {
      *
      * @param comment
      */
-    @RequestMapping("saveComment")
+    @RequestMapping("/saveComment")
     @ResponseBody
     public void saveGiftPackage(@RequestBody Comment comment) {
         commentService.saveComment(comment);

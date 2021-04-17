@@ -39,7 +39,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "showRegister")
+    @RequestMapping("/showRegister")
     public ModelAndView showRegister() {
         return new ModelAndView(VIEW_REGISTER_PATH);
     }
@@ -50,7 +50,7 @@ public class UserController {
      * @param user 参数封装
      * @return Result
      */
-    @RequestMapping(value = "/register")
+    @RequestMapping("/register")
     public ModelAndView register(User user) {
         LOGGER.debug("注册用户信息-开始");
         ModelAndView mav = new ModelAndView();
@@ -75,7 +75,7 @@ public class UserController {
      * @return Result
      */
 
-    @RequestMapping(value = "/registerMinorInfo")
+    @RequestMapping("/registerMinorInfo")
     public ModelAndView registerMinorInfo(User user) {
         LOGGER.debug("次要信息提交-开始");
         ModelAndView mav = new ModelAndView();
@@ -98,7 +98,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "showLogin")
+    @RequestMapping("/showLogin")
     public ModelAndView showLogin() {
         return new ModelAndView(VIEW_LOGIN_PATH);
     }
@@ -109,7 +109,7 @@ public class UserController {
      * @param user 参数封装
      * @return Result
      */
-    @RequestMapping(value = "/login")
+    @RequestMapping("/login")
     public ModelAndView login(User user, HttpServletRequest request) {
         LOGGER.debug("用户登录-开始");
         ModelAndView mav = new ModelAndView();

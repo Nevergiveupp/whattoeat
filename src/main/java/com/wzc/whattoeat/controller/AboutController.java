@@ -29,7 +29,7 @@ public class AboutController {
      *
      * @return
      */
-    @RequestMapping(value = "showSite")
+    @RequestMapping("/showSite")
     public ModelAndView showSite() {
         return new ModelAndView(VIEW_SITE_PATH);
     }
@@ -39,7 +39,7 @@ public class AboutController {
      *
      * @return
      */
-    @RequestMapping(value = "showAuthor")
+    @RequestMapping("/showAuthor")
     public ModelAndView showAuthor() {
         return new ModelAndView(VIEW_AUTHOR_PATH);
     }
