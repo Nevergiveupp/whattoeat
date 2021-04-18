@@ -95,38 +95,6 @@
 <body>
 <div id="app">
 
-    <!--<nav class="nav navbar-inverse navbar-fixed-top">-->
-    <!--<div class="container">-->
-    <!--<div class="navbar-header">-->
-    <!--&lt;!&ndash;在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容&ndash;&gt;-->
-    <!--<button class="navbar-toggle" data-toggle="collapse" data-target="#menu">-->
-    <!--<span class="icon-bar"></span>-->
-    <!--<span class="icon-bar"></span>-->
-    <!--<span class="icon-bar"></span>-->
-    <!--</button>-->
-    <!--<a href="#" class="navbar-brand">WhatToEat</a>-->
-    <!--</div>-->
-    <!--<div id="menu" class="collapse navbar-collapse">-->
-    <!--<ul class="nav navbar-nav">-->
-    <!--<li class="active"><a href="../wte/index">吃什么</a></li>-->
-    <!--<li><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>-->
-    <!--&lt;!&ndash;下拉菜单功能的实现&ndash;&gt;-->
-    <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-    <!--关于<span class="caret"></span></a>-->
-    <!--<ul class="dropdown-menu">-->
-    <!--<li><a href="../about/showSite">本站</a></li>-->
-    <!--<li><a href="../about/showAuthor">作者</a></li>-->
-    <!--</ul>-->
-    <!--</li>-->
-    <!--<li><a href="../user/showLogin">登入</a></li>-->
-    <!--<li><a href="../user/showRegister">注册</a></li>-->
-    <!--<li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</nav>-->
-
-
     <el-menu
             :default-active="1"
             class="el-menu-demo"
@@ -135,7 +103,7 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b">
-        <el-menu-item index="1" href="../wte/index">吃什么</el-menu-item>
+        <el-menu-item index="1"><a href="../wte/index">吃什么</a></el-menu-item>
         <el-menu-item index="2"><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></el-menu-item>
         <el-submenu index="3">
             <template #title>关于</template>
@@ -368,7 +336,7 @@
                 getRandomElement() {
                     let _this = this;
                     _this.dialogVisible = true;
-                    // 这里需要等待0.5s，避免dom元素未加载成功
+                    // TODO 这里dialog显示，但span并未加载，加载在该方法执行之后，待解决
 
                     // 把菜单列表中的菜品名称转为数组
                     const dishNames = _this.menuData.map(v => v.dishName);
@@ -376,12 +344,12 @@
                     const decisionContent = document.getElementById('decisionContent');
                     _this.decision = dishNames[index];
                     console.log(dishNames[index]);
-                    if (!_this.decision) {
+                    if (0 === dishNames.length) {
+                        // 首次点击decisionContent为null，无法设置innerText
                         decisionContent.innerText = '请先点击查看并加载菜单！'
                     }
                 }
             },
-
 
             mounted() {
                 this.search();
