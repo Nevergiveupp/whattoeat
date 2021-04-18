@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzc.whattoeat.dao.intf.DiningHallDishMapper">
+
+    <resultMap id="diningHallDishResultMap" type="com.wzc.whattoeat.entity.DiningHallDishEntity">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="dining_hall_code" jdbcType="VARCHAR" property="diningHallCode"/>
+        <result column="dining_hall_name" jdbcType="VARCHAR" property="diningHallName" />
+        <result column="dish_code" jdbcType="VARCHAR" property="dishCode" />
+        <result column="dish_name" jdbcType="VARCHAR" property="dishName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="creator" jdbcType="VARCHAR" property="creator" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="updater" jdbcType="VARCHAR" property="updater" />
+    </resultMap>
+
+    <sql id="Base_Query_List">
+      id, dining_hall_code, dining_hall_name, dish_code, dish_name, create_time, creator, update_time, updater
+    </sql>
+
+    <select id="findAllDiningHall" resultType="com.wzc.whattoeat.entity.DiningHallDishEntity" resultMap="diningHallDishResultMap">
+        SELECT
+          distinct dining_hall_code, dining_hall_name
+        FROM dining_hall_dish
+    </select>
+
+    <select id="findDishByHall" resultType="com.wzc.whattoeat.entity.DiningHallDishEntity" resultMap="diningHallDishResultMap">
+        SELECT
+          <include refid="Base_Query_List"/>
+        FROM dining_hall_dish
+        <where>
+            1=1
+            <if test="diningHallCode != null and diningHallCode !=''">
+                AND dining_hall_code = #{diningHallCode}
+            </if>
+        </where>
+    </select>
+
+</mapper>

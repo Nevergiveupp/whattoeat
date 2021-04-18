@@ -2,8 +2,18 @@ package com.wzc.whattoeat.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 〈操作日志实体类〉<br>
+ * 〈功能详细描述〉
+ *
+ * @author PrinceCheng
+ * @see [相关类/方法]（可选）
+ * @since [产品/模块版本] （可选）
+ */
 public class OperateLog implements Serializable {
+
+    private static final long serialVersionUID = 1835992026367323028L;
+
     private Integer id;
     private Date visitTime;
     private String visitTimeStr;

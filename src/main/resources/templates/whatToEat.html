@@ -4,382 +4,396 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- elementUI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <!-- elementUI JS -->
+    <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>吃什么</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/layer/layer.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
     <link th:href="@{/css/theme.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
           type="text/css"/>
     <link th:href="@{/plugins/font_a4odpaijq7g/iconfont.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/plugins/layui/css/layui.css}" rel="stylesheet" type="text/css">
 </head>
 <style>
-    .form-inline {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    .form-control {
-        display: inline-block;
-        width: auto;
-    }
-
-    .layui-colla-title {
-        padding: 5px 15px 10px 35px;
-    }
-
-    .panel .panel-heading {
-        line-height: 42px;
-    }
-
-    input {
-        margin-left: 15px;
-        margin-right: 15px;
-    }
-
-    .btn-primary {
-        margin-left: 5px;
-        width: 200px;
-    }
-
-    #comment {
-        display: inline-block;
-        height: 100px;
-        margin-left: 15px;
-        width: auto;
-    }
-
-    #commentTable {
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 10px;
+    .el-header, .el-footer {
+        background-color: #B3C0D1;
+        color: #333;
         text-align: center;
-        font-size: 14px;
+        line-height: 60px;
     }
 
-    #commentTable th {
+    .el-aside {
+        background-color: #D3DCE6;
+        color: #333;
         text-align: center;
-        font-weight: bold;
+        line-height: 200px;
     }
 
-    #commentDiv button {
-        margin-left: 60px;
-    }
-
-    #submitComment {
-        width: 90px;
-    }
-
-    #logoDiv {
+    .el-main {
+        background-color: #E9EEF3;
+        color: #333;
         text-align: center;
-        margin-top: 50px;
+        line-height: 160px;
+    }
+
+    body > .el-container {
+        margin-bottom: 40px;
+
+    }
+
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+        line-height: 260px;
+    }
+
+    .el-container:nth-child(7) .el-aside {
+        line-height: 320px;
+    }
+
+    .el-row {
+        margin-bottom: 20px;
+
+    &
+    :last-child {
+        margin-bottom: 0;
+    }
+
+    }
+    .el-col {
+        border-radius: 4px;
+    }
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+
+    .bg-purple {
+        background: #d3dce6;
+    }
+
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
     }
 </style>
 <body>
-<nav class="nav navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
-            <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand">WhatToEat</a>
-        </div>
-        <div id="menu" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="../wte/index">吃什么</a></li>
-                <li><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>
-                <!--下拉菜单功能的实现-->
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    关于<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../about/showSite">本站</a></li>
-                        <li><a href="../about/showAuthor">作者</a></li>
-                    </ul>
-                </li>
-                <li><a href="../user/showLogin">登入</a></li>
-                <li><a href="../user/showRegister">注册</a></li>
-                <li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div id="app">
 
-<div id="logoDiv">
-    <img alt="logo" th:src="@{/img/1.png}" width="375px" id="logo">
+    <!--<nav class="nav navbar-inverse navbar-fixed-top">-->
+    <!--<div class="container">-->
+    <!--<div class="navbar-header">-->
+    <!--&lt;!&ndash;在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容&ndash;&gt;-->
+    <!--<button class="navbar-toggle" data-toggle="collapse" data-target="#menu">-->
+    <!--<span class="icon-bar"></span>-->
+    <!--<span class="icon-bar"></span>-->
+    <!--<span class="icon-bar"></span>-->
+    <!--</button>-->
+    <!--<a href="#" class="navbar-brand">WhatToEat</a>-->
+    <!--</div>-->
+    <!--<div id="menu" class="collapse navbar-collapse">-->
+    <!--<ul class="nav navbar-nav">-->
+    <!--<li class="active"><a href="../wte/index">吃什么</a></li>-->
+    <!--<li><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></li>-->
+    <!--&lt;!&ndash;下拉菜单功能的实现&ndash;&gt;-->
+    <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+    <!--关于<span class="caret"></span></a>-->
+    <!--<ul class="dropdown-menu">-->
+    <!--<li><a href="../about/showSite">本站</a></li>-->
+    <!--<li><a href="../about/showAuthor">作者</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li><a href="../user/showLogin">登入</a></li>-->
+    <!--<li><a href="../user/showRegister">注册</a></li>-->
+    <!--<li><a href="#" th:text="'欢迎，' + ${session.username}"></a></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</nav>-->
+
+
+    <el-menu
+            :default-active="1"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select=""
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1" href="../wte/index">吃什么</el-menu-item>
+        <el-menu-item index="2"><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></el-menu-item>
+        <el-submenu index="3">
+            <template #title>关于</template>
+            <el-menu-item index="3-1"><a href="../about/showSite">本站</a></el-menu-item>
+            <el-menu-item index="3-2"><a href="../about/showAuthor">作者</a></el-menu-item>
+        </el-submenu>
+        <el-menu-item index="4"><a href="../user/showLogin">登入</a></el-menu-item>
+        <el-menu-item index="5"><a href="../user/showRegister">注册</a></el-menu-item>
+        <el-menu-item index="6"><a href="#"
+                                   th:text="null != ${session.username} ? '欢迎，' + ${session.username} : '请登录'"></a>
+        </el-menu-item>
+    </el-menu>
+
+    <div>
+
+        <el-container>
+
+            <el-main>
+                <div class="block">
+                    <el-image th:src="@{/img/1.png}" width="375px" id="logo"></el-image>
+                </div>
+
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item title="中午吃什么" name="1">
+                        <el-row>
+                            <el-select v-model="diningHallCode" placeholder="请先选择餐厅">
+                                <el-option
+                                        v-for="(item, index) in options"
+                                        :key="index"
+                                        :label="item.diningHallName"
+                                        :value="item.diningHallCode"
+                                        @click.native="handleSelect(item)"
+                                >
+                                </el-option>
+                            </el-select>
+                            <el-popover
+                                    placement="right"
+                                    :width="400"
+                                    trigger="click">
+                                <template #reference>
+                                    <el-button @click="showMenu">点我查看并加载菜单</el-button>
+                                </template>
+                                <el-table :data="menuData">
+                                    <el-table-column width="150" property="dishCode"
+                                                     label="菜品编码"></el-table-column>
+                                    <el-table-column width="100" property="dishName"
+                                                     label="菜品名称"></el-table-column>
+                                    <el-table-column width="300" property="createTime"
+                                                     label="创建时间"></el-table-column>
+                                </el-table>
+                            </el-popover>
+                        </el-row>
+                        <el-row>
+                            <el-button type="primary" round @click="getRandomElement">决定吃什么</el-button>
+
+                            <el-dialog
+                                    title="吃什么呢？"
+                                    v-model="dialogVisible"
+                                    width="30%"
+                            >
+                                <span id="decisionContent">就决定吃【{{decision}}】吧！</span>
+                                <template #footer>
+                                    <span class="dialog-footer">
+                                      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                                    </span>
+                                </template>
+                            </el-dialog>
+
+                        </el-row>
+                    </el-collapse-item>
+                    <el-collapse-item title="晚上吃什么" name="2">
+                        <el-select v-model="diningHallCodeSupper" placeholder="请选择">
+                            <el-option
+                                    v-for="(item, index) in options"
+                                    :key="index"
+                                    :label="item.diningHallName"
+                                    :value="item.diningHallCode"
+                                    @click.native="handleSelect(item)"
+                            >
+                            </el-option>
+                        </el-select>
+                        <el-popover
+                                placement="right"
+                                :width="400"
+                                trigger="click">
+                            <template #reference>
+                                <el-button @click="showMenuSupper">点我查看菜单</el-button>
+                            </template>
+                            <el-table :data="menuData">
+                                <el-table-column width="150" property="dishCode"
+                                                 label="菜品编码"></el-table-column>
+                                <el-table-column width="100" property="dishName"
+                                                 label="菜品名称"></el-table-column>
+                                <el-table-column width="300" property="createTime"
+                                                 label="创建时间"></el-table-column>
+                            </el-table>
+                        </el-popover>
+                    </el-collapse-item>
+
+                </el-collapse>
+
+
+            </el-main>
+            <el-footer>©2021 WhatToEat &nbsp&nbsp&nbsp&nbsp&nbsp Developed by PrinceCheng</el-footer>
+        </el-container>
+
+    </div>
+
 </div>
-<div class="layui-collapse" lay-accordion>
-    <div class="panel panel-primary layui-colla-item">
-        <div class="panel-heading layui-colla-title">
-            <h3 class="panel-title"><i class="fa fa-question-circle" style="font-size:24px"></i> 吃什么
-                <small>——午饭吃什么</small>
-            </h3>
-        </div>
-        <div id="mealDiv" class="layui-colla-content layui-show">
-            <div class="form-inline">
-                <label for="menuSelect"></label>
-                请选择菜单：
-                <select id="menuSelect" class="form-control" onclick="">
-                    <option value="" disabled selected style="display:none;">
-                        请选择
-                    </option>
-                    <option value="01">易购楼百乐汇美食花园</option>
-                    <option value="02">易购负一层麦金地餐厅</option>
-                    <option value="03">苏宁总部</option>
-                    <option value="04">广场负二层</option>
-                </select>
-            </div>
-            <div class="form-inline">
-                <label for="menu1"></label>
-                <button id="menu1" class="btn btn-info" onclick="showMenu();"><i class="fa fa-book"
-                                                                                 style="font-size:20px"></i> 菜单展示
-                </button>
-            </div>
-            <div class="form-inline" style="display: none">
-                <label for="meal">今天吃：</label>
-                <span id="meal"></span>
-            </div>
-            <button id="showMeal" type="button" class="btn btn-primary" onclick="showMeal();">
-                <i class="fa fa-coffee" style="font-size:20px"></i> 决 定 午 饭 吃 啥
-            </button>
-        </div>
-    </div>
-
-    <div class="panel panel-primary layui-colla-item">
-        <div class="panel-heading layui-colla-title">
-            <h3 class="panel-title"><i class="fa fa-question-circle" style="font-size:24px"></i> 吃什么
-                <small>——晚饭吃什么</small>
-            </h3>
-        </div>
-        <div id="supperDiv" class="layui-colla-content layui-show">
-            <div class="form-inline">
-                <label for="menuSelect2"></label>
-                请选择菜单：
-                <select id="menuSelect2" class="form-control" onclick="">
-                    <option value="" disabled selected style="display:none;">
-                        请选择
-                    </option>
-                    <option value="01">苏宁总部</option>
-                    <option value="02">易购负二层</option>
-                </select>
-            </div>
-            <div class="form-inline">
-                <label for="menu2"></label>
-                <button id="menu2" class="btn btn-info" onclick="showMenu2();"><i class="fa fa-book"
-                                                                                  style="font-size:20px"></i> 晚饭菜单
-                </button>
-            </div>
-            <div class="form-inline" style="display: none">
-                <label for="meal2">今天吃：</label>
-                <span id="meal2"></span>
-            </div>
-            <button id="showMeal2" type="button" class="btn btn-primary" onclick="showMeal2();">
-                <i class="fa fa-cutlery" style="font-size:20px"></i> 看 看 晚 饭 吃 啥
-            </button>
-        </div>
-    </div>
-</div>
-
 </body>
 <script type="text/javascript" th:inline="javascript">
 
-    var menu01 = ["12块套餐", "大鸡腿", "煲仔饭", "重庆面", "香锅"];
-    var menu02 = ["海鲜焖鸡", "双拼饭", "难吃面", "老娘舅", "如意菜饭"];
+    const App = {
+            data() {
+                return {
+                    activeName: '1',
+                    dialogVisible: false,
+                    diningHallCode: '',
+                    diningHallCodeSupper: '',
+                    diningHallName: '',
+                    options: [],
+                    dishCode: '',
+                    dishName: '',
+                    createTime: '',
+                    menuData: [],
+                    decision: ''
+                };
+            },
+            methods: {
+                /**
+                 * 餐厅列表查询
+                 */
+                search() {
+                    let _this = this;
+                    axios
+                        .request({
+                            url: "/wte/queryAllDiningHall",
+                            params: {},
+                            method: "get"
+                        })
+                        .then(res => {
+                            if (res.data.result) {
+                                _this.options = res.data.data;
+                                // console.log(_this.options);
+                            } else {
+                                this.$message({
+                                    message: '获取后端数据失败',
+                                    type: 'warning'
+                                });
+                            }
+                        });
+                },
+                /**
+                 * 设置餐厅编码
+                 */
+                handleSelect(item) {
+                    let _this = this;
+                    console.log(_this.diningHallCode);
+                },
 
-    function showMeal() {
-        var menuSelect = $("#menuSelect option:selected").val();
-        var random = Math.floor(Math.random() * 10);
-        var result = random % 5;
-        var icon = "";
+                /**
+                 * 午饭菜单
+                 */
+                showMenu() {
+                    let _this = this;
+                    if (!_this.diningHallCode) {
+                        this.$message({
+                            message: "请先选择餐厅！",
+                            type: 'warning'
+                        });
+                        return false;
+                    }
+                    axios
+                        .request({
+                            url: "/wte/queryDishByHall",
+                            params: {
+                                diningHallCode: _this.diningHallCode
+                            },
+                            method: "get"
+                        })
+                        .then(res => {
+                            if (res.data.result) {
+                                _this.menuData = res.data.data;
+                                // console.log(_this.menuData);
+                            } else {
+                                this.$message({
+                                    message: '获取后端数据失败',
+                                    type: 'warning'
+                                });
+                            }
+                        });
+                },
+                /**
+                 * 晚饭菜单
+                 *
+                 * @returns {boolean}
+                 */
+                showMenuSupper() {
+                    let _this = this;
+                    if (!_this.diningHallCodeSupper) {
+                        this.$message({
+                            message: "请先选择餐厅！",
+                            type: 'warning'
+                        });
+                        return false;
+                    }
+                    axios
+                        .request({
+                            url: "/wte/queryDishByHall",
+                            params: {
+                                diningHallCode: _this.diningHallCodeSupper
+                            },
+                            method: "get"
+                        })
+                        .then(res => {
+                            if (res.data.result) {
+                                _this.menuData = res.data.data;
+                                // console.log(_this.menuData);
+                            } else {
+                                this.$message({
+                                    message: '获取后端数据失败',
+                                    type: 'warning'
+                                });
+                            }
+                        });
+                },
+                /**
+                 * 获取数组中随机元素
+                 */
+                getRandomElement() {
+                    let _this = this;
+                    _this.dialogVisible = true;
+                    // 这里需要等待0.5s，避免dom元素未加载成功
 
-        if (result === 0) {
-            if (menuSelect == "01"){
-                $("#meal").html(menu01[0]);
-                icon = '<i class="iconfont icon-12" style="font-size:30px;"></i>'
+                    // 把菜单列表中的菜品名称转为数组
+                    const dishNames = _this.menuData.map(v => v.dishName);
+                    const index = Math.floor((Math.random() * dishNames.length));
+                    const decisionContent = document.getElementById('decisionContent');
+                    _this.decision = dishNames[index];
+                    console.log(dishNames[index]);
+                    if (!_this.decision) {
+                        decisionContent.innerText = '请先点击查看并加载菜单！'
+                    }
+                }
+            },
+
+
+            mounted() {
+                this.search();
             }
-            else if (menuSelect == "02") {
-                $("#meal").html(menu02[0]);
-                icon = '<i class="iconfont icon-haixian" style="font-size:30px;"></i>'
-            }
-        } else if (result === 1) {
-            if (menuSelect == "01"){
-                $("#meal").html(menu01[1]);
-                icon = '<i class="iconfont icon-Drumsticks" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect == "02") {
-                $("#meal").html(menu02[1]);
-                icon = '<i class="iconfont icon-shuanglie" style="font-size:30px;"></i>'
-            }
-        } else if (result === 2) {
-            if (menuSelect == "01"){
-                $("#meal").html(menu01[2]);
-                icon = '<i class="iconfont icon-baozifan" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect == "02") {
-                $("#meal").html(menu02[2]);
-                icon = '<i class="iconfont icon-cai" style="font-size:30px;"></i>'
-            }
-        } else if (result === 3) {
-            if (menuSelect == "01"){
-                $("#meal").html(menu01[3]);
-                icon = '<i class="iconfont icon-miantiao" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect == "02") {
-                $("#meal").html(menu02[3]);
-                icon = '<i class="iconfont icon-laonainai" style="font-size:30px;"></i>'
-            }
-        } else if (result === 4) {
-            if (menuSelect == "01"){
-                $("#meal").html(menu01[4]);
-                icon = '<i class="iconfont icon-hotpot" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect == "02") {
-                $("#meal").html(menu02[4]);
-                icon = '<i class="iconfont icon-icon-test" style="font-size:30px;"></i>'
-            }
+            ,
         }
-        if (menuSelect == "") {
-            layer.open({
-                type: 1
-                , title: '<i class="fa fa-times-circle" style="font-size:24px"></i> 提示'
-                , shade: 0.6
-                , maxmin: true
-                , anim: 4
-                , content: '<div style="padding:50px;"> 请选择菜单！</div>'
-            });
-        } else {
-            layer.open({
-                type: 1
-                , title: '<i class="fa fa-question-circle" style="font-size:24px"></i> 吃啥好呢？'
-                , shade: 0.6
-                , maxmin: true
-                , anim: 4
-                , content: '<div style="padding:50px;">' + icon + ' 中饭就吃【' + $("#meal").html() + '】吧</div>'
-            });
-        }
-    }
-
-    function showMeal2() {
-        var menuSelect2 = $("#menuSelect2 option:selected").val();
-        var random = Math.floor(Math.random() * 10);
-        var result = random % 5;
-        var icon = "";
-        if (result === 0) {
-            if (menuSelect2 == "01"){
-                $("#meal2").html(menu01[0]);
-                icon = '<i class="iconfont icon-12" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect2 == "02") {
-                $("#meal2").html(menu02[0]);
-                icon = '<i class="iconfont icon-haixian" style="font-size:30px;"></i>'
-            }
-        } else if (result === 1) {
-            if (menuSelect2 == "01"){
-                $("#meal2").html(menu01[1]);
-                icon = '<i class="iconfont icon-Drumsticks" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect2 == "02") {
-                $("#meal2").html(menu02[1]);
-                icon = '<i class="iconfont icon-shuanglie" style="font-size:30px;"></i>'
-            }
-        } else if (result === 2) {
-            if (menuSelect2 == "01"){
-                $("#meal2").html(menu01[2]);
-                icon = '<i class="iconfont icon-baozifan" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect2 == "02") {
-                $("#meal2").html(menu02[2]);
-                icon = '<i class="iconfont icon-cai" style="font-size:30px;"></i>'
-            }
-        } else if (result === 3) {
-            if (menuSelect2 == "01"){
-                $("#meal2").html(menu01[3]);
-                icon = '<i class="iconfont icon-miantiao" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect2 == "02") {
-                $("#meal2").html(menu02[3]);
-                icon = '<i class="iconfont icon-laonainai" style="font-size:30px;"></i>'
-            }
-        } else if (result === 4) {
-            if (menuSelect2 == "01"){
-                $("#meal2").html(menu01[4]);
-                icon = '<i class="iconfont icon-hotpot" style="font-size:30px;"></i>'
-            }
-            else if (menuSelect2 == "02") {
-                $("#meal2").html(menu02[4]);
-                icon = '<i class="iconfont icon-icon-test" style="font-size:30px;"></i>'
-            }
-        }
-        if (menuSelect2 == "") {
-            layer.open({
-                type: 1
-                , title: '<i class="fa fa-times-circle" style="font-size:24px"></i> 提示'
-                , shade: 0.6
-                , maxmin: true
-                , anim: 4
-                , content: '<div style="padding:50px;"> 请选择菜单！</div>'
-            });
-        } else {
-            layer.open({
-                type: 1
-                , title: '<i class="fa fa-question-circle" style="font-size:24px"></i> 吃啥好呢？'
-                , shade: 0.6
-                , maxmin: true
-                , anim: 6
-                , content: '<div style="padding:50px;">' + icon + ' 晚饭就吃【' + $("#meal2").html() + '】吧</div>'
-            });
-        }
-    }
-
-    function showMenu() {
-        var menuSelect = $("#menuSelect option:selected").val();
-        if (menuSelect == "01") {
-            layer.tips('12块套餐 大鸡腿 煲仔饭 重庆面 香锅', '#menu1', {
-                tipsMore: true
-            });
-        } else if (menuSelect == "02") {
-            layer.tips('海鲜焖鸡 双拼饭 难吃面 老娘舅 如意菜饭', '#menu1', {
-                tipsMore: true
-            });
-        } else {
-            layer.tips('未选择菜单！', '#menu1', {
-                tipsMore: true
-            });
-        }
-    }
-
-    function showMenu2() {
-        var menuSelect2 = $("#menuSelect2 option:selected").val();
-        if (menuSelect2 == "01") {
-            layer.tips('12块套餐 大鸡腿 煲仔饭 重庆面 香锅', '#menu2', {
-                tipsMore: true
-            });
-        } else if (menuSelect2 == "02") {
-            layer.tips('海鲜焖鸡 双拼饭 难吃面 老娘舅 如意菜饭', '#menu2', {
-                tipsMore: true
-            });
-        } else {
-            layer.tips('未选择菜单！', '#menu2', {
-                tipsMore: true
-            });
-        }
-    }
-
-    layui.use(['element', 'layer'], function () {
-        var element = layui.element;
-        var layer = layui.layer;
-
-        //监听折叠
-        element.on('collapse(test)', function (data) {
-            layer.msg('展开状态：' + data.show);
-        })
-    });
+    ;
+    const app = Vue.createApp(App);
+    app.use(ElementPlus);
+    app.mount("#app");
 
 </script>
+
+
 </html>
