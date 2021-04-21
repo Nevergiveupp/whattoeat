@@ -12,85 +12,18 @@
     <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>吃什么</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <link th:href="@{/css/theme.css}" rel="stylesheet" type="text/css"/>
+    <!-- font-awesome -->
     <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
           type="text/css"/>
+    <!-- iconfont -->
     <link th:href="@{/plugins/font_a4odpaijq7g/iconfont.css}" rel="stylesheet" type="text/css"/>
+    <!--公用css-->
+    <link th:href="@{/css/base.css}" rel="stylesheet" type="text/css"/>
+
+    <title>WhatToEat</title>
 </head>
 <style>
-    .el-header, .el-footer {
-        background-color: #B3C0D1;
-        color: #333;
-        text-align: center;
-        line-height: 60px;
-    }
 
-    .el-aside {
-        background-color: #D3DCE6;
-        color: #333;
-        text-align: center;
-        line-height: 200px;
-    }
-
-    .el-main {
-        background-color: #E9EEF3;
-        color: #333;
-        text-align: center;
-        line-height: 160px;
-    }
-
-    body > .el-container {
-        margin-bottom: 40px;
-
-    }
-
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-        line-height: 260px;
-    }
-
-    .el-container:nth-child(7) .el-aside {
-        line-height: 320px;
-    }
-
-    .el-row {
-        margin-bottom: 20px;
-
-    &
-    :last-child {
-        margin-bottom: 0;
-    }
-
-    }
-    .el-col {
-        border-radius: 4px;
-    }
-
-    .bg-purple-dark {
-        background: #99a9bf;
-    }
-
-    .bg-purple {
-        background: #d3dce6;
-    }
-
-    .bg-purple-light {
-        background: #e5e9f2;
-    }
-
-    .grid-content {
-        border-radius: 4px;
-        min-height: 36px;
-    }
-
-    .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
-    }
 </style>
 <body>
 <div id="app">
@@ -104,113 +37,137 @@
             text-color="#fff"
             active-text-color="#ffd04b">
         <el-menu-item index="1"><a href="../wte/index">吃什么</a></el-menu-item>
-        <el-menu-item index="2"><a href="../comment/queryComment?page=1&pageSize=5">留言板</a></el-menu-item>
+        <el-menu-item index="2"><a href="../comment/index">留言板</a></el-menu-item>
         <el-submenu index="3">
             <template #title>关于</template>
             <el-menu-item index="3-1"><a href="../about/showSite">本站</a></el-menu-item>
             <el-menu-item index="3-2"><a href="../about/showAuthor">作者</a></el-menu-item>
         </el-submenu>
-        <el-menu-item index="4"><a href="../user/showLogin">登入</a></el-menu-item>
-        <el-menu-item index="5"><a href="../user/showRegister">注册</a></el-menu-item>
-        <el-menu-item index="6"><a href="#"
-                                   th:text="null != ${session.username} ? '欢迎，' + ${session.username} : '请登录'"></a>
+        <el-menu-item index="4" v-show="false"><a href="../user/showLogin">登入</a></el-menu-item>
+        <el-menu-item index="5" v-show="false"><a href="../user/showRegister">注册</a></el-menu-item>
+        <el-menu-item index="6" v-show="false"><a href="#"
+                                                  th:text="null != ${session.username} ? '欢迎，' + ${session.username} : '尚未登录，请登录'"></a>
         </el-menu-item>
     </el-menu>
 
-    <div>
+    <el-container>
 
-        <el-container>
+        <el-main>
+            <div class="block">
+                <el-image th:src="@{/img/1.png}" width="375px" id="logo"></el-image>
+            </div>
 
-            <el-main>
-                <div class="block">
-                    <el-image th:src="@{/img/1.png}" width="375px" id="logo"></el-image>
-                </div>
-
-                <el-collapse v-model="activeName" accordion>
-                    <el-collapse-item title="中午吃什么" name="1">
-                        <el-row>
-                            <el-select v-model="diningHallCode" placeholder="请先选择餐厅">
-                                <el-option
-                                        v-for="(item, index) in options"
-                                        :key="index"
-                                        :label="item.diningHallName"
-                                        :value="item.diningHallCode"
-                                        @click.native="handleSelect(item)"
-                                >
-                                </el-option>
-                            </el-select>
-                            <el-popover
-                                    placement="right"
-                                    :width="400"
-                                    trigger="click">
-                                <template #reference>
-                                    <el-button @click="showMenu">点我查看并加载菜单</el-button>
-                                </template>
-                                <el-table :data="menuData">
-                                    <el-table-column width="150" property="dishCode"
-                                                     label="菜品编码"></el-table-column>
-                                    <el-table-column width="100" property="dishName"
-                                                     label="菜品名称"></el-table-column>
-                                    <el-table-column width="300" property="createTime"
-                                                     label="创建时间"></el-table-column>
-                                </el-table>
-                            </el-popover>
-                        </el-row>
-                        <el-row>
-                            <el-button type="primary" round @click="getRandomElement">决定吃什么</el-button>
-
-                            <el-dialog
-                                    title="吃什么呢？"
-                                    v-model="dialogVisible"
-                                    width="30%"
+            <el-collapse v-model="activeName" accordion>
+                <el-collapse-item title="中午吃什么" name="1">
+                    <el-divider>我是分割线</el-divider>
+                    <el-row>
+                        <span>第一步：</span>
+                        <el-select v-model="diningHallCode" placeholder="请先选择餐厅">
+                            <el-option
+                                    v-for="(item, index) in options"
+                                    :key="index"
+                                    :label="item.diningHallName"
+                                    :value="item.diningHallCode"
                             >
-                                <span id="decisionContent">就决定吃【{{decision}}】吧！</span>
-                                <template #footer>
+                            </el-option>
+                        </el-select>
+                    </el-row>
+                    <el-row>
+                        <span>第二步：</span>
+                        <el-button @click="showMenu">点我查看午饭菜单</el-button>
+                        <el-drawer
+                                title="菜 单"
+                                v-model="table"
+                                direction="rtl"
+                                size="50%">
+                            <el-table :data="menuData">
+                                <el-table-column property="dishCode" label="菜品编码" width="150"></el-table-column>
+                                <el-table-column property="dishName" label="菜品名称" width="200"></el-table-column>
+                                <el-table-column property="createTime" label="创建时间"></el-table-column>
+                            </el-table>
+                        </el-drawer>
+
+                    </el-row>
+                    <el-row>
+                        <span>第三步：</span>
+                        <el-button type="primary" round @click="getRandomElement" :disabled="decisionBtnDisabled">
+                            决定吃什么
+                        </el-button>
+
+                        <el-dialog
+                                title="中饭吃什么呢？"
+                                v-model="dialogVisible"
+                                width="30%"
+                        >
+                            <span id="decisionContent">就决定吃【{{decision}}】吧！</span>
+                            <template #footer>
                                     <span class="dialog-footer">
                                       <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
                                     </span>
-                                </template>
-                            </el-dialog>
+                            </template>
+                        </el-dialog>
 
-                        </el-row>
-                    </el-collapse-item>
-                    <el-collapse-item title="晚上吃什么" name="2">
+                    </el-row>
+                </el-collapse-item>
+                <el-collapse-item title="晚上吃什么" name="2">
+                    <el-divider>我是分割线</el-divider>
+                    <el-row>
+                        <span>第一步：</span>
                         <el-select v-model="diningHallCodeSupper" placeholder="请选择">
                             <el-option
                                     v-for="(item, index) in options"
                                     :key="index"
                                     :label="item.diningHallName"
                                     :value="item.diningHallCode"
-                                    @click.native="handleSelect(item)"
                             >
                             </el-option>
                         </el-select>
-                        <el-popover
-                                placement="right"
-                                :width="400"
-                                trigger="click">
-                            <template #reference>
-                                <el-button @click="showMenuSupper">点我查看菜单</el-button>
-                            </template>
+                    </el-row>
+                    <el-row>
+                        <span>第二步：</span>
+                        <el-button @click="showMenuSupper">点我查看晚饭菜单</el-button>
+                        <el-drawer
+                                title="菜 单"
+                                v-model="table"
+                                direction="rtl"
+                                size="50%">
                             <el-table :data="menuData">
-                                <el-table-column width="150" property="dishCode"
-                                                 label="菜品编码"></el-table-column>
-                                <el-table-column width="100" property="dishName"
-                                                 label="菜品名称"></el-table-column>
-                                <el-table-column width="300" property="createTime"
-                                                 label="创建时间"></el-table-column>
+                                <el-table-column property="dishCode" label="菜品编码" width="150"></el-table-column>
+                                <el-table-column property="dishName" label="菜品名称" width="200"></el-table-column>
+                                <el-table-column property="createTime" label="创建时间"></el-table-column>
                             </el-table>
-                        </el-popover>
-                    </el-collapse-item>
+                        </el-drawer>
+                    </el-row>
+                    <el-row>
+                        <span>第三步：</span>
+                        <el-button type="primary" round @click="getRandomElementSupper"
+                                   :disabled="decisionBtnDisabledSupper">
+                            决定吃什么
+                        </el-button>
 
-                </el-collapse>
+                        <el-dialog
+                                title="晚饭吃什么呢？"
+                                v-model="dialogVisible"
+                                width="30%"
+                        >
+                            <span id="decisionContentSupper">就决定吃【{{decision}}】吧！</span>
+                            <template #footer>
+                                    <span class="dialog-footer">
+                                      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                                    </span>
+                            </template>
+                        </el-dialog>
+
+                    </el-row>
+                </el-collapse-item>
+
+            </el-collapse>
 
 
-            </el-main>
-            <el-footer>©2021 WhatToEat &nbsp&nbsp&nbsp&nbsp&nbsp Developed by PrinceCheng</el-footer>
-        </el-container>
+        </el-main>
+        <el-footer>©2021 WhatToEat &nbsp&nbsp&nbsp&nbsp&nbsp Developed by PrinceCheng</el-footer>
+    </el-container>
 
-    </div>
 
 </div>
 </body>
@@ -229,7 +186,10 @@
                     dishName: '',
                     createTime: '',
                     menuData: [],
-                    decision: ''
+                    decision: '',
+                    decisionBtnDisabled: true,
+                    decisionBtnDisabledSupper: true,
+                    table: false,
                 };
             },
             methods: {
@@ -256,13 +216,6 @@
                             }
                         });
                 },
-                /**
-                 * 设置餐厅编码
-                 */
-                handleSelect(item) {
-                    let _this = this;
-                    console.log(_this.diningHallCode);
-                },
 
                 /**
                  * 午饭菜单
@@ -272,10 +225,12 @@
                     if (!_this.diningHallCode) {
                         this.$message({
                             message: "请先选择餐厅！",
-                            type: 'warning'
+                            type: 'error'
                         });
                         return false;
                     }
+                    // 已选择餐厅，允许弹出drawer
+                    _this.table = true;
                     axios
                         .request({
                             url: "/wte/queryDishByHall",
@@ -286,8 +241,11 @@
                         })
                         .then(res => {
                             if (res.data.result) {
+                                // 加载菜单表格数据
                                 _this.menuData = res.data.data;
                                 // console.log(_this.menuData);
+                                // 加载成功，将决定吃什么按钮置为可用
+                                _this.decisionBtnDisabled = false;
                             } else {
                                 this.$message({
                                     message: '获取后端数据失败',
@@ -306,10 +264,12 @@
                     if (!_this.diningHallCodeSupper) {
                         this.$message({
                             message: "请先选择餐厅！",
-                            type: 'warning'
+                            type: 'error'
                         });
                         return false;
                     }
+                    // 已选择餐厅，允许弹出drawer
+                    _this.table = true;
                     axios
                         .request({
                             url: "/wte/queryDishByHall",
@@ -320,8 +280,11 @@
                         })
                         .then(res => {
                             if (res.data.result) {
+                                // 加载菜单表格数据
                                 _this.menuData = res.data.data;
                                 // console.log(_this.menuData);
+                                // 加载成功，将决定吃什么按钮置为可用
+                                _this.decisionBtnDisabledSupper = false;
                             } else {
                                 this.$message({
                                     message: '获取后端数据失败',
@@ -331,22 +294,36 @@
                         });
                 },
                 /**
-                 * 获取数组中随机元素
+                 * 获取一个随机菜品
                  */
                 getRandomElement() {
                     let _this = this;
                     _this.dialogVisible = true;
-                    // TODO 这里dialog显示，但span并未加载，加载在该方法执行之后，待解决
-
                     // 把菜单列表中的菜品名称转为数组
                     const dishNames = _this.menuData.map(v => v.dishName);
+                    // 随机取一个菜品
                     const index = Math.floor((Math.random() * dishNames.length));
                     const decisionContent = document.getElementById('decisionContent');
                     _this.decision = dishNames[index];
                     console.log(dishNames[index]);
+
                     if (0 === dishNames.length) {
-                        // 首次点击decisionContent为null，无法设置innerText
                         decisionContent.innerText = '请先点击查看并加载菜单！'
+                    }
+                },
+                getRandomElementSupper() {
+                    let _this = this;
+                    _this.dialogVisible = true;
+                    // 把菜单列表中的菜品名称转为数组
+                    const dishNames = _this.menuData.map(v => v.dishName);
+                    // 随机取一个菜品
+                    const index = Math.floor((Math.random() * dishNames.length));
+                    const decisionContentSupper = document.getElementById('decisionContentSupper');
+                    _this.decision = dishNames[index];
+                    console.log(dishNames[index]);
+
+                    if (0 === dishNames.length) {
+                        decisionContentSupper.innerText = '请先点击查看并加载菜单！'
                     }
                 }
             },

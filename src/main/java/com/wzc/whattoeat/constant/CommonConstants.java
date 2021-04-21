@@ -30,6 +30,15 @@ public class CommonConstants {
      */
     public final static int PAGE_SIZE = 10;
 
+    /**
+     * 分页总记录数字符串
+     */
+    public final static String TOTAL_COUNT = "totalCount";
+
+    /**
+     * 分页数据字符串
+     */
+    public final static String DATA = "data";
 
     /**
      * 国际化和主题
@@ -72,15 +81,6 @@ public class CommonConstants {
      */
     public final static int REDIS_TIME_SEVENDAY = 60 * 60 * 24 * 7;
 
-    /**
-     * 云信查询运单信息及物流详情时token的缓存时间（60分钟）
-     */
-    public final static int YUNXIN_TOKEN_REDIS_TIME_SECONDS = 60 * 60 * 1;
-
-    /**
-     * 缓存字典表的key的前缀
-     */
-    public final static String REDIS_DICTIONART_PRE = "com.suning.fw.common.dictionaryinf.";
     /**
      * 邮件的文本类型
      */
@@ -160,8 +160,6 @@ public class CommonConstants {
     public static final String INVOKE_BEAN_ID = "beanId";
 
 
-    // 总数:该常量不能修改 rxm
-    public static final String TOTALCOUNT = "totalCount";
     // 设置检索开始行
     public static final String STARTINDEX = "startIndex";
     // 设置检索数据个数
@@ -172,10 +170,7 @@ public class CommonConstants {
      */
     public static final String AUTOATTRIBUTE = "autoAttribute";
 
-    /**
-     * 缓存中bfwusernamekey
-     */
-    public static final String BFW_USER_KEY = "bfw_bmusernamekey";
+
 
     public static final int NUM_NEGATIVE_ONE = -1;
 
@@ -224,41 +219,7 @@ public class CommonConstants {
 
     public static final String CLASS_TYPE_BIGDECIMAL = "class java.math.BigDecimal";
 
-    /**
-     * 用户名session对应的KEY
-     */
-    public static final String USER_NAME = "SEL-UserName";
-
-    /**
-     * 系统简称
-     */
-    public static final String SERVICE_CODE = "LCSS";
-
     public static final String REQUEST_STR = "Request";
-
-    public static final String IVR_ROLE_NAME = "ivr_role_name";
-
-    public static final String IVR_SN_ROLE_NAME = "ivr_sn_role_name";
-
-    /**
-     * 苏宁指定问题类型
-     */
-    public static final String IVR_TT_PROBLEMDESC = "ivr_tt_problemdesc";
-
-    /**
-     * 苏宁坐席 业务报备 逆向反馈事由
-     */
-    public static final String IVR_SN_FEEDBACKCAUSE = "ivr_sn_feedbackCause";
-
-    /**
-     * 业务来源配置查询限制
-     */
-    public static final String SCM_BUSINESS_SOURCE_SETTING_QUERY_LIMIT = "scm_businessSourceLimit";
-
-    /**
-     * 供应商模糊查询限制
-     */
-    public static final String SCM_CARRIER_QUERY_LIMIT = "scm_carrier_query_limit";
 
     /*
      * null
@@ -297,28 +258,9 @@ public class CommonConstants {
     }
 
     /**
-     * 主动服务单类型
-     */
-    public static class ActiveServiceType {
-        private ActiveServiceType() {
-
-        }
-
-        //异常事件单
-        public static final String ABNORMAL_EVENTS = "1101";
-
-        //主动报备
-        public static final String BUSINESS_REPORT = "1102";
-
-        //客诉前置
-        public static final String ABNORMAL_REPORT = "1103";
-    }
-
-    /**
      * Add a private constructor to hide the implicit public one.
      * Sonar的建议
      *
-     * @author 17030368
      * @see [相关类/方法]（可选）
      * @since [产品/模块版本] （可选）
      */

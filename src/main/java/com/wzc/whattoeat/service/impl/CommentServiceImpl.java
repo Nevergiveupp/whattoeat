@@ -31,6 +31,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Page<Comment> findAllByPage(Integer page, Integer pageSize) {
+        // 设置默认分页
+        if (null == page) {
+            page = 1;
+        }
+        if (null == pageSize) {
+            pageSize = 10;
+        }
         PageHelper.startPage(page, pageSize);
         List<Comment> list = commentMapper.findAll();
         return (Page<Comment>) list;
