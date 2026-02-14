@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- vue -->
-    <script src="https://unpkg.com/vue@next"></script>
+    <script th:src="@{/js/vue.global.js}"></script>
     <!-- elementUI CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <link th:href="@{/css/element-plus.css}" rel="stylesheet">
     <!-- elementUI JS -->
-    <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+    <script th:src="@{/js/element-plus.full.js}"></script>
     <!-- axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script th:src="@{/js/axios.min.js}"></script>
     <!-- font-awesome -->
     <link th:href="@{https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css}" rel="stylesheet"
           type="text/css"/>
